@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leçon 5 – Structures de Données Avancées | Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <h1>📒 Portfolio Évolutif – Algorithmique et Complexité</h1>
+  <p>M1 – Leçon 5 : Structures de Données Avancées</p>
+</header>
+
+<a class="back-link" href="index.html">← Retour au portfolio</a>
+
+<main>
+  <div id="lecon5" data-lesson-id="lecon5">
+    <h1 class="lesson-title">Leçon 5 – Structures de Données Avancées</h1>
+
+    <div class="save-bar">
+      <button class="save-btn" data-save="lecon5">💾 Enregistrer mes notes</button>
+      <div class="save-notice" id="save-notice"></div>
+    </div>
+
+    <!-- ── Section 1 ── -->
+    <section class="card">
+      <h2><span class="icon">📝</span> 1. Journal d'apprentissage réflexif</h2>
+      <div contenteditable="true" data-key="lecon5-journal">
+Cette semaine a été particulièrement riche avec l'étude des structures de données avancées. Après les listes, tableaux et piles que je connaissais déjà, nous avons abordé les arbres binaires de recherche (ABR), les arbres AVL, les tas (heaps) et les tables de hachage.
+
+Ce qui m'a le plus marqué : la différence entre un ABR non équilibré et un AVL. Un ABR dégénéré (insérer des éléments triés) devient une liste chaînée — toutes les opérations passent à O(n). L'arbre AVL, en maintenant automatiquement la hauteur ≤ 2·log₂(n), garantit O(log n) dans tous les cas. La contrepartie : les rotations. J'ai mis du temps à visualiser la rotation gauche-droite (double rotation) ; il a fallu que je la dessine étape par étape sur papier.
+
+Les tables de hachage m'ont fasciné par leur efficacité : O(1) amorti pour recherche, insertion et suppression, sous réserve d'une bonne fonction de hachage et d'un facteur de charge raisonnable. Mais j'ai réalisé que O(1) amorti cache une complexité O(n) dans le pire cas (toutes les clés dans le même seau). Comprendre "amorti" — qu'on répartit le coût des rehashing sur toutes les opérations — m'a pris une journée de réflexion.
+
+Point faible de cette semaine : les arbres rouge-noir. Leur définition (5 propriétés) est claire, mais maintenir ces propriétés lors des insertions et suppressions implique des cas nombreux et j'ai eu du mal à les retenir tous. Je dois les retravailler.
+      </div>
+    </section>
+
+    <!-- ── Section 2 ── -->
+    <section class="card">
+      <h2><span class="icon">🧠</span> 2. Synthèse personnelle des concepts clés</h2>
+      <div contenteditable="true" data-key="lecon5-synthese">
+Arbres Binaires de Recherche (ABR) :
+Propriété : pour tout nœud x, tous les nœuds du sous-arbre gauche ont des clés ≤ x et tous ceux du sous-arbre droit ont des clés ≥ x. Opérations : recherche, insertion, suppression en O(h) où h est la hauteur. Sans équilibrage, h peut valoir O(n) dans le pire cas.
+
+Arbres AVL :
+ABR avec contrainte : pour chaque nœud, |hauteur(gauche) − hauteur(droite)| ≤ 1. Hauteur garantie : h ≤ 2·log₂(n). Toutes les opérations en O(log n). Les déséquilibres sont corrigés par des rotations simples (gauche ou droite) ou doubles (gauche-droite ou droite-gauche).
+
+Tas (Heap) :
+Arbre binaire complet satisfaisant la propriété de tas (max-heap : chaque parent ≥ enfants). Représenté efficacement par un tableau. Opérations : insertion O(log n), extraction du max O(log n), construction O(n) (amortie). Utilisé pour implémenter une file de priorité.
+
+Tables de hachage :
+Tableau de taille m indexé par une fonction de hachage h : U → {0,…,m-1}. Résolution des collisions : chaînage (listes dans chaque case) ou adressage ouvert (probing). Facteur de charge α = n/m. Pour α constant, opérations en O(1) amorti. Rehashing quand α > seuil : coût O(n) mais amorti O(1) par opération.
+
+Union-Find (structures disjointes) :
+Représente une partition d'un ensemble. Opérations Union et Find en O(α(n)) ≈ O(1) avec compression de chemin et union par rang (α = inverse d'Ackermann).
+      </div>
+    </section>
+
+    <!-- ── Section 3 ── -->
+    <section class="card">
+      <h2><span class="icon">🛠️</span> 3. Application pratique dans mon contexte</h2>
+      <div contenteditable="true" data-key="lecon5-application">
+Dans un projet de simulation de réseau social, j'avais besoin de maintenir une liste de "notifications" triées par priorité (urgence + timestamp). J'avais initialement utilisé une liste Python triée à chaque insertion : O(n) par insertion.
+
+Après cette leçon, j'ai remplacé cette structure par un tas binaire (module heapq de Python) :
+• Insertion d'une notification : O(log n) au lieu de O(n)
+• Extraction de la notification la plus prioritaire : O(log n)
+• Sur 10 000 notifications : gain de 100x sur les insertions
+
+J'ai également utilisé une table de hachage (dictionnaire Python) pour mémoriser les utilisateurs déjà notifiés (cache de déduplication) : accès en O(1) vs O(n) pour une liste.
+
+Pour la partie "connexité" du réseau (savoir si deux utilisateurs appartiennent à la même composante connexe), j'ai implémenté Union-Find : chaque ajout d'amitié est une Union, et les requêtes "même composante ?" sont des Find, tous en O(α(n)) ≈ O(1).
+
+Ces trois structures combinées ont réduit le temps de traitement d'un batch de 100 000 opérations de 45 secondes à moins de 2 secondes.
+      </div>
+    </section>
+
+    <!-- ── Section 4 ── -->
+    <section class="card">
+      <h2><span class="icon">🔍</span> 4. Auto-évaluation et méta-cognition</h2>
+      <div class="eval-grid">
+        <div class="eval-item">
+          <label>✅ Ce que je maîtrise bien :</label>
+          <div contenteditable="true" data-key="lecon5-maitrise">L'implémentation et l'analyse d'un ABR (insertion, suppression, parcours). L'utilisation d'un tas via heapq pour une file de priorité. La compréhension du facteur de charge et de l'analyse amortie des tables de hachage. Le choix de la structure adaptée selon les opérations requises.</div>
+        </div>
+        <div class="eval-item">
+          <label>⚠️ Ce que je dois améliorer :</label>
+          <div contenteditable="true" data-key="lecon5-ameliorer">L'implémentation complète d'un arbre AVL avec toutes les rotations (surtout la double rotation). Les arbres rouge-noir : mémoriser les 5 propriétés et les cas de réparation lors de l'insertion/suppression. L'analyse amortie formelle (méthode du potentiel) pour les tables de hachage et les structures Union-Find.</div>
+        </div>
+        <div class="eval-item">
+          <label>🎯 Stratégie pour progresser :</label>
+          <div contenteditable="true" data-key="lecon5-strategie">Implémenter un AVL complet en Python avec tests unitaires pour les quatre types de rotation. Dessiner les arbres avant et après chaque rotation pour visualiser l'invariant. Pour les arbres rouge-noir, créer des fiches récapitulatives des cas d'insertion (cas 1, 2, 3) et les tester sur des exemples de CLRS chapitre 13.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Navigation ── -->
+    <nav class="lesson-nav">
+      <a href="lecon4.html">← Leçon 4</a>
+      <a href="lecon6.html">Leçon 6 →</a>
+    </nav>
+  </div>
+</main>
+
+<footer>
+  Portfolio Évolutif – UE Algorithmique et Complexité &nbsp;|&nbsp; M1 &nbsp;|&nbsp;
+  Les modifications sont sauvegardées localement dans votre navigateur.
+</footer>
+
+<script src="portfolio.js"></script>
+</body>
+</html>

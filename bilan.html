@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bilan Final – Portfolio Algorithmique</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <h1>📒 Portfolio Évolutif – Algorithmique et Complexité</h1>
+  <p>M1 – 🔎 Bilan Final du Semestre</p>
+</header>
+
+<a class="back-link" href="index.html">← Retour au portfolio</a>
+
+<main>
+  <div id="bilan" data-lesson-id="bilan">
+    <h1 class="lesson-title">🔎 Bilan Final du Semestre</h1>
+
+    <div class="save-bar">
+      <button class="save-btn" data-save="bilan">💾 Enregistrer mes notes</button>
+      <div class="save-notice" id="save-notice"></div>
+    </div>
+
+    <p style="font-style: italic; color: #555; margin-bottom: 1.4rem;">
+      À compléter en fin de semestre, après avoir parcouru l'ensemble des leçons.
+      Cliquez dans chaque zone pour éditer votre réflexion finale.
+    </p>
+
+    <section class="card">
+      <h2><span class="icon">🏆</span> 1. Ce que j'ai le plus appris dans ce cours</h2>
+      <div contenteditable="true" data-key="bilan-appris">
+Ce que j'ai le plus appris dans ce cours dépasse les algorithmes individuels : c'est la façon de penser algorithmique. Avant ce cours, j'écrivais du code qui "fonctionnait" ; maintenant je suis capable de raisonner sur son efficacité, de comparer des solutions et de prouver leur correction. La notation asymptotique est devenue un outil de communication quotidien avec mes pairs et dans mes rapports techniques.
+
+Parmi les concepts spécifiques, la programmation dynamique a été la plus transformatrice : elle m'a appris à décomposer des problèmes complexes en sous-problèmes et à éviter les calculs redondants, une compétence directement applicable dans la conception de systèmes.
+
+La rigueur de la preuve de correction (invariants de boucle, argument d'échange) m'a aussi changé : je ne suis plus satisfait d'un algorithme qui "semble marcher" sans en comprendre pourquoi.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2><span class="icon">♻️</span> 2. Les compétences que je peux réutiliser ailleurs</h2>
+      <div contenteditable="true" data-key="bilan-competences">
+• Analyse de complexité : applicable à n'importe quel code que j'écris ou révise, indépendamment du domaine applicatif.
+• Programmation dynamique : utile en optimisation (recherche opérationnelle, IA, bioinformatique), partout où on optimise sous contraintes.
+• Algorithmes sur les graphes : modélisation de réseaux (informatiques, sociaux, biologiques), planification, détection de cycles dans des systèmes de dépendances.
+• Structures de données avancées (tas, tables de hachage, Union-Find) : ingénierie logicielle quotidienne — files de priorité, caches, ensembles disjoints.
+• Raisonnement par invariant : utile dans la vérification de tout programme contenant des boucles ou des propriétés à maintenir.
+• Paradigme Diviser pour Régner : applicable dans le traitement distribué (map-reduce) et les algorithmes numériques (FFT, transformées rapides).
+      </div>
+    </section>
+
+    <section class="card">
+      <h2><span class="icon">⛰️</span> 3. Mon plus grand défi</h2>
+      <div contenteditable="true" data-key="bilan-defi">
+Mon plus grand défi a été la programmation dynamique, et plus spécifiquement la capacité à formuler de manière autonome la récurrence pour un problème nouveau que je n'ai pas encore vu. Je peux résoudre des variantes de problèmes connus, mais face à un problème vraiment inédit, je mets encore trop de temps à trouver la bonne décomposition en sous-problèmes.
+
+En second lieu, les preuves formelles de correction (argument d'échange pour les gloutons, preuve de Dijkstra, Théorème Maître cas limite) : je comprends les preuves données en cours, mais les construire de zéro pour un algorithme nouveau reste un exercice difficile.
+
+Ces deux défis sont liés : dans les deux cas, il s'agit de faire le saut créatif de "voir" la structure cachée d'un problème, ce qui demande de la pratique intensive sur des problèmes variés.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2><span class="icon">🚀</span> 4. Mes prochaines étapes d'apprentissage</h2>
+      <div contenteditable="true" data-key="bilan-etapes">
+• Court terme (1 mois) : Résoudre 50 problèmes de PD sur LeetCode (progression par difficulté), en rédigeant systématiquement la récurrence avant de coder. Lire les chapitres 15-17 de CLRS (PD et gloutons).
+
+• Moyen terme (semestre suivant) : Approfondir les algorithmes d'approximation et les problèmes NP-complets (réductions, classe NP). Explorer les algorithmes randomisés (QuickSort randomisé, algorithmes de Monte-Carlo). Étudier les algorithmes parallèles (map-reduce, PRAM).
+
+• Long terme (stage/emploi) : Appliquer ces concepts dans des contextes réels : systèmes de recommandation (optimisation), analyse de graphes de connaissances (graphes), traitement de flux de données (structures de données temps-réel). Participer à des compétitions de programmation (Codeforces, niveau 1500-1800) pour consolider l'algorithmique sous contrainte de temps.
+
+• Compétences transverses : Améliorer ma capacité à communiquer les analyses de complexité à des non-spécialistes (présenter un graphique de croissance plutôt que des notations formelles).
+      </div>
+    </section>
+
+    <!-- ── Navigation ── -->
+    <nav class="lesson-nav">
+      <a href="lecon8.html">← Leçon 8</a>
+      <a href="index.html">🏠 Accueil</a>
+    </nav>
+  </div>
+</main>
+
+<footer>
+  Portfolio Évolutif – UE Algorithmique et Complexité &nbsp;|&nbsp; M1 &nbsp;|&nbsp;
+  Les modifications sont sauvegardées localement dans votre navigateur.
+</footer>
+
+<script src="portfolio.js"></script>
+</body>
+</html>

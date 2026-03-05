@@ -1,0 +1,189 @@
+/* ── Reset & base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  background: #f9f7f2;
+  color: #1a1a1a;
+  line-height: 1.75;
+}
+
+/* ── Header ── */
+header {
+  background: #1a3a5c;
+  color: #fff;
+  padding: 2rem 1.5rem 1.5rem;
+  text-align: center;
+}
+header h1 { font-size: 1.8rem; letter-spacing: .03em; }
+header p  { margin-top: .4rem; font-size: 1rem; opacity: .85; font-style: italic; }
+
+/* ── Back link ── */
+.back-link {
+  display: inline-block;
+  margin: 1.2rem 0 0 1.5rem;
+  color: #1a3a5c;
+  text-decoration: none;
+  font-size: .9rem;
+  font-family: Georgia, serif;
+}
+.back-link:hover { text-decoration: underline; }
+
+/* ── Main content ── */
+main {
+  max-width: 880px;
+  margin: 1.5rem auto 4rem;
+  padding: 0 1.2rem;
+}
+
+/* ── Lesson heading ── */
+.lesson-title {
+  font-size: 1.5rem;
+  color: #1a3a5c;
+  border-bottom: 2px solid #1a3a5c;
+  padding-bottom: .4rem;
+  margin-bottom: 1.6rem;
+}
+
+/* ── Section cards ── */
+section.card {
+  background: #fff;
+  border-left: 4px solid #1a3a5c;
+  border-radius: 0 6px 6px 0;
+  padding: 1.2rem 1.4rem;
+  margin-bottom: 1.4rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,.07);
+}
+section.card h2 {
+  font-size: 1.05rem;
+  color: #1a3a5c;
+  margin-bottom: .7rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+section.card h2 .icon { font-size: 1.15rem; }
+
+/* ── Editable areas ── */
+[contenteditable="true"] {
+  border: 1px dashed #b0c4de;
+  border-radius: 4px;
+  padding: .5rem .7rem;
+  min-height: 5rem;
+  outline: none;
+  background: #f5f9fd;
+  font-family: inherit;
+  font-size: .95rem;
+  transition: border-color .2s, background .2s;
+}
+[contenteditable="true"]:focus {
+  border-color: #1a3a5c;
+  background: #eaf2fb;
+}
+
+/* ── Auto-eval grid ── */
+.eval-grid { display: grid; gap: .8rem; }
+.eval-item label {
+  display: block;
+  font-weight: bold;
+  font-size: .9rem;
+  color: #2d5f96;
+  margin-bottom: .3rem;
+}
+.eval-item [contenteditable="true"] { min-height: 3rem; }
+
+/* ── Save button ── */
+.save-bar { text-align: right; margin-bottom: .6rem; }
+.save-btn {
+  background: #1a3a5c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: .4rem 1rem;
+  font-size: .85rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .2s;
+}
+.save-btn:hover { background: #2d5f96; }
+.save-notice {
+  font-size: .78rem;
+  color: #555;
+  margin-top: .25rem;
+  text-align: right;
+  min-height: 1em;
+}
+
+/* ── Portal grid (index.html) ── */
+.portal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.2rem;
+  margin-top: 2rem;
+}
+.portal-card {
+  background: #fff;
+  border: 1px solid #c8d8ea;
+  border-radius: 8px;
+  padding: 1.3rem 1.4rem;
+  text-decoration: none;
+  color: #1a1a1a;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  transition: box-shadow .2s, border-color .2s;
+  display: block;
+}
+.portal-card:hover {
+  box-shadow: 0 3px 10px rgba(26,58,92,.18);
+  border-color: #1a3a5c;
+}
+.portal-card .num {
+  font-size: .78rem;
+  font-weight: bold;
+  color: #2d5f96;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: .3rem;
+}
+.portal-card h2 {
+  font-size: 1rem;
+  margin-bottom: .4rem;
+  color: #1a3a5c;
+}
+.portal-card p {
+  font-size: .87rem;
+  color: #555;
+  font-style: italic;
+}
+.portal-card.bilan {
+  border-color: #b58900;
+  background: #fffdf2;
+}
+.portal-card.bilan h2 { color: #7a5c00; }
+.portal-card.bilan .num { color: #b58900; }
+
+/* ── Nav breadcrumb ── */
+.lesson-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+.lesson-nav a {
+  color: #1a3a5c;
+  text-decoration: none;
+  font-size: .88rem;
+  padding: .35rem .8rem;
+  border: 1px solid #1a3a5c;
+  border-radius: 4px;
+  transition: background .2s, color .2s;
+}
+.lesson-nav a:hover { background: #1a3a5c; color: #fff; }
+
+/* ── Footer ── */
+footer {
+  text-align: center;
+  font-size: .82rem;
+  color: #888;
+  padding: 1rem;
+  border-top: 1px solid #ddd;
+}

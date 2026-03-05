@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leçon 8 – Algorithmes Gloutons | Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <h1>📒 Portfolio Évolutif – Algorithmique et Complexité</h1>
+  <p>M1 – Leçon 8 : Algorithmes Gloutons</p>
+</header>
+
+<a class="back-link" href="index.html">← Retour au portfolio</a>
+
+<main>
+  <div id="lecon8" data-lesson-id="lecon8">
+    <h1 class="lesson-title">Leçon 8 – Algorithmes Gloutons</h1>
+
+    <div class="save-bar">
+      <button class="save-btn" data-save="lecon8">💾 Enregistrer mes notes</button>
+      <div class="save-notice" id="save-notice"></div>
+    </div>
+
+    <!-- ── Section 1 ── -->
+    <section class="card">
+      <h2><span class="icon">📝</span> 1. Journal d'apprentissage réflexif</h2>
+      <div contenteditable="true" data-key="lecon8-journal">
+Les algorithmes gloutons ont été la leçon la plus "trompeuse" du cours : ils paraissent simples (choisir toujours le mieux localement), mais leur analyse de correction est souvent subtile et non triviale.
+
+Ce qui m'a d'abord surpris : beaucoup d'algorithmes que j'utilisais sans y penser sont des gloutons — Dijkstra, Kruskal, Prim, l'algorithme de Huffman. J'avais utilisé ces outils sans savoir que leur correction repose sur une propriété spécifique : la propriété de choix glouton.
+
+La preuve de correction par "argument d'échange" (exchange argument) est la technique clé. L'idée : supposer qu'une solution optimale O diffère du choix glouton G, montrer qu'on peut transformer O pour "inclure" le choix glouton sans dégrader sa valeur, donc que G est aussi dans une solution optimale. Cette technique m'a pris plusieurs heures à maîtriser ; les premiers exercices étaient laborieux.
+
+Ma plus grande difficulté : savoir QUAND un algorithme glouton est correct et quand il ne l'est pas. Le contre-exemple du sac à dos entier (0-1 Knapsack) — où glouton échoue mais PD réussit — et le sac à dos fractionnel — où glouton (ratio valeur/poids décroissant) réussit — illustre bien cette frontière délicate.
+
+L'algorithme de Huffman m'a fasciné : construire l'arbre de codage optimal en fusionnant toujours les deux arbres de poids minimal est un glouton dont la preuve de correction par argument d'échange est très élégante. Implémenter Huffman avec un tas m'a pris une soirée mais était très satisfaisant.
+
+Ressenti général : j'apprécie la légèreté computationnelle des gloutons (souvent O(n log n)) comparé à la PD, mais j'ai maintenant le réflexe de vérifier formellement la propriété de choix glouton avant de l'utiliser.
+      </div>
+    </section>
+
+    <!-- ── Section 2 ── -->
+    <section class="card">
+      <h2><span class="icon">🧠</span> 2. Synthèse personnelle des concepts clés</h2>
+      <div contenteditable="true" data-key="lecon8-synthese">
+Un algorithme glouton résout un problème d'optimisation en faisant à chaque étape le choix localement optimal, sans jamais revenir en arrière. Sa correction dépend de deux propriétés que le problème doit satisfaire :
+
+1. Propriété de choix glouton : il existe une solution optimale qui inclut le choix glouton (preuve par argument d'échange).
+2. Sous-structure optimale : une solution optimale au problème contient des solutions optimales aux sous-problèmes (identique à PD, mais le glouton n'a besoin que d'un seul sous-problème à chaque étape).
+
+Algorithmes gloutons canoniques :
+
+• Sélection d'activités : trier par heure de fin croissante, sélectionner greedily. O(n log n). Maximise le nombre d'activités non chevauchantes.
+
+• Sac à dos fractionnel : trier par ratio valeur/poids décroissant, remplir greedily. O(n log n). Optimal (preuve directe). ≠ sac à dos entier (NP-difficile, nécessite PD).
+
+• Codage de Huffman : construire l'arbre de codage à préfixe optimal en fusionnant les deux sous-arbres de fréquence minimale (tas min). O(n log n). Minimise la longueur totale encodée.
+
+• Algorithme de Kruskal (ACM) : trier les arêtes par poids, ajouter si ne crée pas de cycle (Union-Find). O(E log E). Glouton correct grâce au lemme de coupure.
+
+• Algorithme de Prim (ACM) : étendre l'arbre courant en ajoutant l'arête de poids minimal reliant l'arbre au reste. O((V+E) log V) avec tas. Correct par le même lemme de coupure.
+
+• Dijkstra (plus court chemin) : extraire toujours le sommet non visité de distance minimale. Glouton correct car les poids sont ≥ 0 (un chemin déjà finalisé ne peut être amélioré par un poids négatif).
+
+Limites : les algorithmes gloutons échouent quand la propriété de choix glouton n'est pas vérifiée. Exemples : sac à dos 0-1, coloration de graphe, voyageur de commerce.
+      </div>
+    </section>
+
+    <!-- ── Section 3 ── -->
+    <section class="card">
+      <h2><span class="icon">🛠️</span> 3. Application pratique dans mon contexte</h2>
+      <div contenteditable="true" data-key="lecon8-application">
+Dans un projet de compression de logs de serveur pour archivage long terme, j'ai implémenté le codage de Huffman. Les logs contiennent beaucoup de caractères répétitifs (espaces, chiffres, lettres communes) : un codage à longueur variable (Huffman) peut réduire la taille de 40 à 60% par rapport à l'ASCII fixe 8 bits.
+
+Étapes :
+1. Calculer la fréquence de chaque caractère (256 possibles) dans le fichier.
+2. Construire l'arbre de Huffman avec un tas min : fusionner les deux nœuds de plus basse fréquence jusqu'à obtenir un seul arbre. O(256 · log 256) = O(2048) — quasi-instantané.
+3. Parcourir l'arbre pour assigner un code binaire à chaque caractère.
+4. Encoder le fichier en remplaçant chaque caractère par son code.
+
+Résultats sur un fichier de 100 MB de logs :
+• Taille originale : 100 MB
+• Taille compressée Huffman : 58 MB (gain de 42%)
+• Temps de compression : < 2 secondes
+
+Application future : la sélection gloutonne d'activités sera utile pour planifier des tâches de maintenance système (chaque tâche a une fenêtre horaire fixe, objectif = maximiser le nombre de tâches effectuées par une seule machine).
+      </div>
+    </section>
+
+    <!-- ── Section 4 ── -->
+    <section class="card">
+      <h2><span class="icon">🔍</span> 4. Auto-évaluation et méta-cognition</h2>
+      <div class="eval-grid">
+        <div class="eval-item">
+          <label>✅ Ce que je maîtrise bien :</label>
+          <div contenteditable="true" data-key="lecon8-maitrise">L'identification et l'implémentation des algorithmes gloutons classiques (sélection d'activités, Huffman, Kruskal avec Union-Find). La distinction entre sac à dos fractionnel (glouton optimal) et sac à dos entier (NP-difficile). La technique de preuve par argument d'échange sur des exemples connus. L'analyse de complexité des gloutons (généralement O(n log n) avec tri + une passe).</div>
+        </div>
+        <div class="eval-item">
+          <label>⚠️ Ce que je dois améliorer :</label>
+          <div contenteditable="true" data-key="lecon8-ameliorer">La construction autonome de preuves par argument d'échange pour des problèmes nouveaux. Déterminer rapidement si un problème nouveau admet un algorithme glouton correct ou si la PD est nécessaire. Le lemme de coupure pour les arbres couvrants minimaux (Kruskal et Prim) : je comprends l'énoncé mais pas encore la preuve complète.</div>
+        </div>
+        <div class="eval-item">
+          <label>🎯 Stratégie pour progresser :</label>
+          <div contenteditable="true" data-key="lecon8-strategie">Pour chaque nouveau problème d'optimisation rencontré : (1) tenter d'abord un algorithme glouton naturel, (2) chercher un contre-exemple — si j'en trouve un, passer à la PD, (3) si pas de contre-exemple évident, construire la preuve par argument d'échange. Résoudre les exercices du CLRS chapitre 16 en rédigeant les preuves de correction complètes. Implémenter Huffman avec décompression et vérifier la reconstruction.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Navigation ── -->
+    <nav class="lesson-nav">
+      <a href="lecon7.html">← Leçon 7</a>
+      <a href="bilan.html">🔎 Bilan final →</a>
+    </nav>
+  </div>
+</main>
+
+<footer>
+  Portfolio Évolutif – UE Algorithmique et Complexité &nbsp;|&nbsp; M1 &nbsp;|&nbsp;
+  Les modifications sont sauvegardées localement dans votre navigateur.
+</footer>
+
+<script src="portfolio.js"></script>
+</body>
+</html>

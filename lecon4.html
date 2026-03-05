@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leçon 4 – Diviser pour Régner | Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <h1>📒 Portfolio Évolutif – Algorithmique et Complexité</h1>
+  <p>M1 – Leçon 4 : Diviser pour Régner (Divide &amp; Conquer)</p>
+</header>
+
+<a class="back-link" href="index.html">← Retour au portfolio</a>
+
+<main>
+  <div id="lecon4" data-lesson-id="lecon4">
+    <h1 class="lesson-title">Leçon 4 – Diviser pour Régner</h1>
+
+    <div class="save-bar">
+      <button class="save-btn" data-save="lecon4">💾 Enregistrer mes notes</button>
+      <div class="save-notice" id="save-notice"></div>
+    </div>
+
+    <!-- ── Section 1 ── -->
+    <section class="card">
+      <h2><span class="icon">📝</span> 1. Journal d'apprentissage réflexif</h2>
+      <div contenteditable="true" data-key="lecon4-journal">
+Cette leçon a formalisé un paradigme que j'utilisais intuitivement sans en connaître les fondements : Diviser pour Régner. J'ai compris que MergeSort et la recherche binaire, que j'avais étudiés séparément, sont tous deux des instances du même schéma général : Diviser → Régner → Combiner.
+
+Le Théorème Maître a été la grande révélation de cette semaine. Pouvoir résoudre des récurrences de la forme T(n) = aT(n/b) + f(n) sans dérouler l'arbre de récursion à chaque fois est un gain de temps énorme. Les trois cas du théorème — comparaison entre f(n) et n^(log_b(a)) — me semblent logiques une fois qu'on a compris que n^(log_b(a)) représente le coût total des feuilles de l'arbre de récursion.
+
+Ma plus grande difficulté : déterminer dans quel cas du Théorème Maître on se trouve lorsque f(n) est "proche" de n^(log_b(a)) mais pas strictement inférieure ni supérieure (le cas 2 avec les logarithmes). J'ai eu du mal avec T(n) = 2T(n/2) + n·log n : ce n'est pas le cas 2 standard car f(n) = n·log n ≠ Θ(n). Il faut recourir à l'analyse par arbre de récursion.
+
+J'ai aussi apprécié l'exemple de la multiplication de Strassen : en passant de 8 à 7 multiplications récursives, la complexité passe de O(n³) à O(n^2.81), ce qui illustre comment "économiser un sous-problème" peut changer dramatiquement l'asymptotique.
+
+Ressenti : cette leçon est dense mais stimulante. Le Théorème Maître donne une vraie puissance d'analyse que j'ai immédiatement voulu appliquer à d'autres problèmes.
+      </div>
+    </section>
+
+    <!-- ── Section 2 ── -->
+    <section class="card">
+      <h2><span class="icon">🧠</span> 2. Synthèse personnelle des concepts clés</h2>
+      <div contenteditable="true" data-key="lecon4-synthese">
+Le paradigme Diviser pour Régner repose sur trois étapes :
+1. Diviser : décomposer le problème de taille n en a sous-problèmes de taille n/b.
+2. Régner : résoudre chaque sous-problème récursivement (ou directement si n est trivial).
+3. Combiner : fusionner les solutions des sous-problèmes pour obtenir la solution globale.
+
+La récurrence associée est : T(n) = aT(n/b) + f(n), où f(n) est le coût de division + combinaison.
+
+Théorème Maître — soit k = log_b(a) :
+• Cas 1 : si f(n) = O(n^(k−ε)) pour ε > 0 → T(n) = Θ(n^k). [Les feuilles dominent]
+• Cas 2 : si f(n) = Θ(n^k · log^p n) → T(n) = Θ(n^k · log^(p+1) n). [Coût uniforme sur tous les niveaux]
+• Cas 3 : si f(n) = Ω(n^(k+ε)) pour ε > 0 ET régularité → T(n) = Θ(f(n)). [La racine domine]
+
+Exemples canoniques :
+• MergeSort : T(n) = 2T(n/2) + O(n) → a=2, b=2, k=1, f(n)=O(n)=Θ(n¹) → Cas 2 → T(n)=Θ(n log n)
+• Recherche binaire : T(n) = T(n/2) + O(1) → a=1, b=2, k=0, f(n)=O(1)=Θ(1) → Cas 2 → T(n)=Θ(log n)
+• Multiplication naïve : T(n) = 4T(n/2) + O(n) → k=2, f=O(n) → Cas 1 → T(n)=Θ(n²)
+• Strassen : T(n) = 7T(n/2) + O(n²) → k=log₂7≈2.81, f=O(n²) → Cas 1 → T(n)=Θ(n^log₂7)
+
+Méthode de l'arbre de récursion : alternative au Théorème Maître, utile quand le théorème ne s'applique pas. On dessine l'arbre, calcule le coût par niveau et somme sur tous les niveaux.
+      </div>
+    </section>
+
+    <!-- ── Section 3 ── -->
+    <section class="card">
+      <h2><span class="icon">🛠️</span> 3. Application pratique dans mon contexte</h2>
+      <div contenteditable="true" data-key="lecon4-application">
+Dans mon cours de traitement du signal, nous calculions des corrélations entre signaux par multiplication de polynômes. L'algorithme naïf de multiplication de deux polynômes de degré n a une complexité O(n²). J'ai pu appliquer le paradigme Diviser pour Régner via l'algorithme de Karatsuba :
+
+Karatsuba décompose le produit de deux polynômes A et B en seulement 3 multiplications récursives (au lieu de 4) via l'identité algébrique : A·B = a₁b₁·x^n + [(a₁+a₀)(b₁+b₀) - a₁b₁ - a₀b₀]·x^(n/2) + a₀b₀.
+
+Récurrence : T(n) = 3T(n/2) + O(n) → log₂3 ≈ 1.585 → T(n) = Θ(n^1.585), meilleur que O(n²).
+
+Pour un projet de calcul de corrélations sur des signaux de 10 000 points, ce gain de complexité s'est traduit par un facteur ~5 d'accélération. J'ai également appliqué le paradigme à la recherche de la paire de points les plus proches (closest pair) dans un nuage de 50 000 points 2D : l'algorithme Diviser pour Régner donne O(n log n) vs O(n²) pour la force brute.
+
+Ce paradigme est devenu ma première "stratégie de défaut" face à un problème difficile : puis-je le découper en sous-problèmes indépendants ?
+      </div>
+    </section>
+
+    <!-- ── Section 4 ── -->
+    <section class="card">
+      <h2><span class="icon">🔍</span> 4. Auto-évaluation et méta-cognition</h2>
+      <div class="eval-grid">
+        <div class="eval-item">
+          <label>✅ Ce que je maîtrise bien :</label>
+          <div contenteditable="true" data-key="lecon4-maitrise">L'identification du schéma Diviser-Régner-Combiner dans un algorithme donné. L'application des trois cas du Théorème Maître sur des récurrences standards. La construction et la lecture d'un arbre de récursion pour MergeSort et la recherche binaire. La dérivation de la complexité de Karatsuba et Strassen.</div>
+        </div>
+        <div class="eval-item">
+          <label>⚠️ Ce que je dois améliorer :</label>
+          <div contenteditable="true" data-key="lecon4-ameliorer">Les cas "limites" du Théorème Maître où f(n) est à mi-chemin entre deux cas (ex. f(n) = n log n avec a=b=2). La condition de régularité nécessaire pour le Cas 3. La conception autonome d'un algorithme Diviser pour Régner face à un problème nouveau (je sais analyser mais pas encore concevoir facilement).</div>
+        </div>
+        <div class="eval-item">
+          <label>🎯 Stratégie pour progresser :</label>
+          <div contenteditable="true" data-key="lecon4-strategie">Résoudre les problèmes du TD sur l'algorithme de la paire de points la plus proche (closest pair) et la sélection du k-ième élément (algorithme de Blum). Pour chaque algorithme, écrire la récurrence, appliquer le Théorème Maître ou dessiner l'arbre, puis implémenter et vérifier expérimentalement la complexité mesurée vs théorique.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Navigation ── -->
+    <nav class="lesson-nav">
+      <a href="lecon3.html">← Leçon 3</a>
+      <a href="lecon5.html">Leçon 5 →</a>
+    </nav>
+  </div>
+</main>
+
+<footer>
+  Portfolio Évolutif – UE Algorithmique et Complexité &nbsp;|&nbsp; M1 &nbsp;|&nbsp;
+  Les modifications sont sauvegardées localement dans votre navigateur.
+</footer>
+
+<script src="portfolio.js"></script>
+</body>
+</html>

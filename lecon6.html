@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leçon 6 – Graphes et leurs Algorithmes | Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <h1>📒 Portfolio Évolutif – Algorithmique et Complexité</h1>
+  <p>M1 – Leçon 6 : Graphes et leurs Algorithmes</p>
+</header>
+
+<a class="back-link" href="index.html">← Retour au portfolio</a>
+
+<main>
+  <div id="lecon6" data-lesson-id="lecon6">
+    <h1 class="lesson-title">Leçon 6 – Graphes et leurs Algorithmes</h1>
+
+    <div class="save-bar">
+      <button class="save-btn" data-save="lecon6">💾 Enregistrer mes notes</button>
+      <div class="save-notice" id="save-notice"></div>
+    </div>
+
+    <!-- ── Section 1 ── -->
+    <section class="card">
+      <h2><span class="icon">📝</span> 1. Journal d'apprentissage réflexif</h2>
+      <div contenteditable="true" data-key="lecon6-journal">
+La leçon sur les graphes a été la plus volumineuse du cours. En une semaine, nous avons couvert : définitions (graphes orientés/non orientés, pondérés), représentations (matrice d'adjacence, liste d'adjacence), parcours (BFS, DFS), tri topologique, composantes fortement connexes (Kosaraju, Tarjan), arbre couvrant minimal (Prim, Kruskal) et plus court chemin (Dijkstra, Bellman-Ford, Floyd-Warshall).
+
+Ce qui m'a impressionné : la richesse des applications. Presque tout problème réel peut être modélisé comme un problème de graphe. Le tri topologique (ordonnancement de tâches avec dépendances), les composantes fortement connexes (détection de cycles dans des pipelines de données) et Dijkstra (navigation GPS) sont des outils directement utilisables dans ma vie professionnelle.
+
+Ma principale difficulté : comprendre la preuve de correction de Dijkstra. Intuitivement clair (toujours choisir le sommet non visité le plus proche), mais la preuve par invariant (que le chemin vers le sommet extrait est bien le plus court) m'a demandé plusieurs lectures. Le point clé — que Dijkstra nécessite des poids positifs — était clair, mais comprendre POURQUOI (un poids négatif peut "raccourcir" un chemin déjà finalisé) m'a pris du temps.
+
+L'algorithme de Bellman-Ford était plus intuitif dans sa conception (relaxer toutes les arêtes V-1 fois) mais son analyse de correction était moins évidente. La détection de cycles négatifs (V-ième itération change encore quelque chose) est élégante.
+
+J'ai aussi eu du mal avec l'algorithme de Kosaraju pour les CFC (deux DFS dans des ordres différents). Je dois le réimplémenter pour l'assimiler vraiment.
+      </div>
+    </section>
+
+    <!-- ── Section 2 ── -->
+    <section class="card">
+      <h2><span class="icon">🧠</span> 2. Synthèse personnelle des concepts clés</h2>
+      <div contenteditable="true" data-key="lecon6-synthese">
+Définitions : Un graphe G = (V, E) est un ensemble de sommets V et d'arêtes E ⊆ V×V. Orienté si les arêtes ont un sens, pondéré si les arêtes ont des poids.
+
+Représentations : Matrice d'adjacence — O(V²) espace, O(1) test d'arête, utile pour graphes denses. Liste d'adjacence — O(V+E) espace, O(deg(v)) test d'arête, utile pour graphes creux.
+
+Parcours :
+• BFS (Largeur d'abord) : explore par niveaux, calcule distances minimales non pondérées. Complexité O(V+E). Utilise une file (FIFO).
+• DFS (Profondeur d'abord) : explore récursivement, détecte cycles, classe les arêtes (arbre, retour, avant, croisée). Complexité O(V+E). Utilise une pile (LIFO ou récursion).
+
+Tri topologique : ordre linéaire des sommets d'un DAG tel que pour toute arête (u,v), u précède v. Obtenu par DFS (ordre décroissant des temps de fin) ou algorithme de Kahn (suppression itérative des sources). O(V+E).
+
+Plus courts chemins :
+• Dijkstra : graphes à poids ≥ 0. O((V+E)·log V) avec tas binaire. Greedy : extrait toujours le sommet non visité de distance minimale.
+• Bellman-Ford : poids quelconques, détecte cycles négatifs. O(V·E). Relaxe toutes les arêtes V-1 fois.
+• Floyd-Warshall : plus courts chemins entre toutes les paires. O(V³). Programmation dynamique.
+
+Arbre couvrant minimal (ACM) : sous-graphe connexe acyclique couvrant tous les sommets avec poids total minimal.
+• Kruskal : trie les arêtes par poids, ajoute si ne crée pas de cycle (Union-Find). O(E·log E).
+• Prim : extension gloutonne de l'arbre depuis un sommet initial. O((V+E)·log V) avec tas.
+      </div>
+    </section>
+
+    <!-- ── Section 3 ── -->
+    <section class="card">
+      <h2><span class="icon">🛠️</span> 3. Application pratique dans mon contexte</h2>
+      <div contenteditable="true" data-key="lecon6-application">
+Dans un projet de stage, j'ai travaillé sur l'optimisation du déploiement de microservices. Chaque microservice dépendait d'autres services (base de données, cache, API tiers). La question : dans quel ordre démarrer les services pour que chaque service trouve ses dépendances prêtes ?
+
+Ce problème est exactement un tri topologique sur un DAG de dépendances. J'ai modélisé les dépendances comme un graphe orienté et appliqué l'algorithme de Kahn pour obtenir un ordre de démarrage valide. Le DFS préalable a également permis de détecter des dépendances circulaires (cycles) qui auraient provoqué des blocages.
+
+Pour l'infrastructure réseau, j'ai aussi appliqué Kruskal pour trouver l'arbre couvrant minimal du réseau de machines : cet arbre représente la configuration de câblage minimale qui maintient toutes les machines connectées. Sur un réseau de 200 machines, l'ACM a identifié des liaisons redondantes représentant 30% du coût total.
+
+Enfin, Dijkstra m'a servi pour simuler des routes de failover : si un service tombe, quel chemin de communication alternatif minimise la latence ? Modéliser les latences comme des poids d'arêtes et Dijkstra comme moteur de routage a donné un prototype fonctionnel en moins de 50 lignes de Python.
+      </div>
+    </section>
+
+    <!-- ── Section 4 ── -->
+    <section class="card">
+      <h2><span class="icon">🔍</span> 4. Auto-évaluation et méta-cognition</h2>
+      <div class="eval-grid">
+        <div class="eval-item">
+          <label>✅ Ce que je maîtrise bien :</label>
+          <div contenteditable="true" data-key="lecon6-maitrise">BFS et DFS avec analyse de complexité. Dijkstra avec file de priorité (tas min). Tri topologique (DFS et Kahn). Kruskal avec Union-Find. La modélisation d'un problème réel en problème de graphe. Le choix entre matrice d'adjacence et liste d'adjacence selon la densité du graphe.</div>
+        </div>
+        <div class="eval-item">
+          <label>⚠️ Ce que je dois améliorer :</label>
+          <div contenteditable="true" data-key="lecon6-ameliorer">L'algorithme de Kosaraju pour les composantes fortement connexes (je comprends les étapes mais pas encore la preuve de correction). Bellman-Ford pour les poids négatifs, et notamment la détection de cycles négatifs. Floyd-Warshall : l'implémentation est claire mais la preuve de correction par récurrence sur k me demande plus de travail.</div>
+        </div>
+        <div class="eval-item">
+          <label>🎯 Stratégie pour progresser :</label>
+          <div contenteditable="true" data-key="lecon6-strategie">Implémenter Kosaraju depuis zéro (sans regarder le code) sur un graphe dessiné à la main, puis vérifier. Pour Bellman-Ford, construire un exemple avec cycle négatif et tracer l'exécution pas à pas. Pour Floyd-Warshall, implémenter et vérifier sur le graphe d'exemple de CLRS section 25.2. Résoudre 5 problèmes de graphes sur LeetCode (niveaux medium) cette semaine.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Navigation ── -->
+    <nav class="lesson-nav">
+      <a href="lecon5.html">← Leçon 5</a>
+      <a href="lecon7.html">Leçon 7 →</a>
+    </nav>
+  </div>
+</main>
+
+<footer>
+  Portfolio Évolutif – UE Algorithmique et Complexité &nbsp;|&nbsp; M1 &nbsp;|&nbsp;
+  Les modifications sont sauvegardées localement dans votre navigateur.
+</footer>
+
+<script src="portfolio.js"></script>
+</body>
+</html>

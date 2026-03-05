@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leçon 7 – Programmation Dynamique | Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <h1>📒 Portfolio Évolutif – Algorithmique et Complexité</h1>
+  <p>M1 – Leçon 7 : Programmation Dynamique</p>
+</header>
+
+<a class="back-link" href="index.html">← Retour au portfolio</a>
+
+<main>
+  <div id="lecon7" data-lesson-id="lecon7">
+    <h1 class="lesson-title">Leçon 7 – Programmation Dynamique</h1>
+
+    <div class="save-bar">
+      <button class="save-btn" data-save="lecon7">💾 Enregistrer mes notes</button>
+      <div class="save-notice" id="save-notice"></div>
+    </div>
+
+    <!-- ── Section 1 ── -->
+    <section class="card">
+      <h2><span class="icon">📝</span> 1. Journal d'apprentissage réflexif</h2>
+      <div contenteditable="true" data-key="lecon7-journal">
+La programmation dynamique (PD) a été le concept le plus difficile et le plus transformateur du cours. Difficile parce que chaque problème semble différent et qu'il n'existe pas de recette mécanique pour trouver la récurrence. Transformateur parce qu'une fois qu'on "voit" la structure de sous-problèmes qui se chevauchent, on peut résoudre des problèmes qui semblaient impossibles en temps polynomial.
+
+La première semaine, j'ai surtout fait de la mémorisation : les problèmes classiques (Fibonacci, sac à dos, LCS, multiplication de matrices, chemin dans une grille). Mais je n'avais pas encore internalisé le raisonnement général. La rupture est venue quand le professeur a expliqué les quatre étapes : (1) identifier la structure optimale, (2) définir les sous-problèmes et leur récurrence, (3) choisir l'ordre de calcul, (4) reconstruire la solution.
+
+Ma plus grande difficulté : étape (1) — identifier que le problème a la propriété de sous-structure optimale. Pour le sac à dos, j'ai mis du temps à voir pourquoi OPT(i,w) = max(OPT(i-1,w), v_i + OPT(i-1, w-w_i)) est valide (les solutions optimales aux sous-problèmes constituent une solution optimale au problème global).
+
+L'autre défi : reconstruire la solution optimale (étape 4). Calculer la valeur optimale est généralement simple avec un tableau, mais retrouver QUELS objets constituent cette valeur nécessite de stocker des décisions intermédiaires — une subtilité que j'avais systématiquement oublié de faire dans mes premières implémentations.
+
+Ressenti : frustrant au début, exaltant quand un problème "clique". Je comprends maintenant pourquoi la PD est l'outil central des compétitions de programmation (Codeforces, ICPC).
+      </div>
+    </section>
+
+    <!-- ── Section 2 ── -->
+    <section class="card">
+      <h2><span class="icon">🧠</span> 2. Synthèse personnelle des concepts clés</h2>
+      <div contenteditable="true" data-key="lecon7-synthese">
+La programmation dynamique résout des problèmes en exploitant deux propriétés :
+1. Sous-structure optimale : la solution optimale d'un problème peut être construite à partir des solutions optimales de ses sous-problèmes.
+2. Chevauchement des sous-problèmes : les mêmes sous-problèmes sont résolus plusieurs fois dans la récursion naïve.
+
+Deux implémentations :
+• Top-down (mémoïsation) : récursion avec cache. Simple à écrire, n'évalue que les sous-problèmes nécessaires. Risque de dépassement de pile pour grandes entrées.
+• Bottom-up (tabulation) : remplit un tableau dans l'ordre des dépendances. Pas de récursion, pas de dépassement de pile.
+
+Problèmes classiques et leurs récurrences :
+• Fibonacci : F(n) = F(n-1) + F(n-2) → O(n) au lieu de O(2ⁿ) naïf.
+• Sac à dos 0-1 : OPT(i,w) = max(OPT(i-1,w), v_i + OPT(i-1,w−w_i)) si w_i ≤ w, sinon OPT(i-1,w). O(nW).
+• LCS (plus longue sous-séquence commune) : LCS[i][j] = LCS[i-1][j-1]+1 si X[i]=Y[j], sinon max(LCS[i-1][j], LCS[i][j-1]). O(mn).
+• Édition distance (Levenshtein) : dp[i][j] = min(dp[i-1][j]+1, dp[i][j-1]+1, dp[i-1][j-1] + (0 si X[i]=Y[j] sinon 1)). O(mn).
+• Multiplication de matrices : M[i][j] = min sur k de M[i][k]+M[k+1][j] + p_i·p_{k+1}·p_{j+1}. O(n³).
+• Floyd-Warshall : plus courts chemins, d^k[i][j] = min(d^{k-1}[i][j], d^{k-1}[i][k]+d^{k-1}[k][j]). O(V³).
+
+Différence PD vs glouton : la PD considère toutes les options à chaque étape et garantit l'optimum global ; le glouton choisit localement l'optimum sans retour en arrière (ne garantit l'optimum global que sous conditions spécifiques).
+      </div>
+    </section>
+
+    <!-- ── Section 3 ── -->
+    <section class="card">
+      <h2><span class="icon">🛠️</span> 3. Application pratique dans mon contexte</h2>
+      <div contenteditable="true" data-key="lecon7-application">
+Dans un projet de planification de sprints agiles, mon équipe devait sélectionner des user stories à partir d'un backlog de 50 items, chacun avec une valeur métier estimée (points) et un effort estimé (story points). La contrainte : capacité de l'équipe limitée à 40 story points par sprint.
+
+Ce problème est exactement un sac à dos 0-1 :
+• n = 50 items, W = 40 story points
+• Valeur de chaque item = valeur métier, poids = effort
+• Objectif : maximiser la valeur métier dans la capacité
+
+La solution PD donne l'ensemble optimal de user stories en O(n·W) = O(50×40) = O(2000) opérations, en quelques millisecondes. Une approche exhaustive (2⁵⁰ combinaisons) serait impossible.
+
+J'ai aussi appliqué la distance d'édition (Levenshtein) dans un outil de correction orthographique : étant donné un mot mal orthographié, trouver le mot du dictionnaire le plus proche en termes de distance d'édition. Cette application directe de la PD a produit un correcteur fonctionnel en environ 30 lignes de Python.
+
+Ces deux exemples m'ont convaincu que la PD est une compétence fondamentale, pas seulement théorique, avec des applications immédiates dans le développement logiciel.
+      </div>
+    </section>
+
+    <!-- ── Section 4 ── -->
+    <section class="card">
+      <h2><span class="icon">🔍</span> 4. Auto-évaluation et méta-cognition</h2>
+      <div class="eval-grid">
+        <div class="eval-item">
+          <label>✅ Ce que je maîtrise bien :</label>
+          <div contenteditable="true" data-key="lecon7-maitrise">L'implémentation bottom-up des problèmes classiques (sac à dos, LCS, distance d'édition, Fibonacci). La distinction entre mémoïsation et tabulation. La reconstruction de la solution optimale à partir du tableau DP. La reconnaissance de la propriété de sous-structure optimale dans des problèmes bien connus.</div>
+        </div>
+        <div class="eval-item">
+          <label>⚠️ Ce que je dois améliorer :</label>
+          <div contenteditable="true" data-key="lecon7-ameliorer">La formulation autonome de la récurrence DP pour des problèmes nouveaux que je n'ai pas vus avant. L'optimisation de la mémoire (ex. : sac à dos sur une seule ligne au lieu de matrice complète). Les problèmes de PD sur des graphes (plus long chemin dans un DAG, comptage de chemins). La PD avec états multidimensionnels (plus de 2 dimensions).</div>
+        </div>
+        <div class="eval-item">
+          <label>🎯 Stratégie pour progresser :</label>
+          <div contenteditable="true" data-key="lecon7-strategie">Résoudre chaque semaine 3 nouveaux problèmes de PD sur LeetCode en commençant par formuler la récurrence sur papier avant de coder. Commencer par les problèmes "DP classiques" (catégorie LeetCode), puis passer aux problèmes "DP sur intervalles" et "DP sur arbres". Tenir un journal des récurrences découvertes avec leur patron (1D, 2D, sur intervalles, etc.).</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Navigation ── -->
+    <nav class="lesson-nav">
+      <a href="lecon6.html">← Leçon 6</a>
+      <a href="lecon8.html">Leçon 8 →</a>
+    </nav>
+  </div>
+</main>
+
+<footer>
+  Portfolio Évolutif – UE Algorithmique et Complexité &nbsp;|&nbsp; M1 &nbsp;|&nbsp;
+  Les modifications sont sauvegardées localement dans votre navigateur.
+</footer>
+
+<script src="portfolio.js"></script>
+</body>
+</html>

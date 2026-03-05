@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leçon 2 – Notation Asymptotique | Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <h1>📒 Portfolio Évolutif – Algorithmique et Complexité</h1>
+  <p>M1 – Leçon 2 : Notation Asymptotique (Grand O, Ω, Θ)</p>
+</header>
+
+<a class="back-link" href="index.html">← Retour au portfolio</a>
+
+<main>
+  <div id="lecon2" data-lesson-id="lecon2">
+    <h1 class="lesson-title">Leçon 2 – Notation Asymptotique : O, Ω, Θ</h1>
+
+    <div class="save-bar">
+      <button class="save-btn" data-save="lecon2">💾 Enregistrer mes notes</button>
+      <div class="save-notice" id="save-notice"></div>
+    </div>
+
+    <!-- ── Section 1 ── -->
+    <section class="card">
+      <h2><span class="icon">📝</span> 1. Journal d'apprentissage réflexif</h2>
+      <div contenteditable="true" data-key="lecon2-journal">
+Cette semaine j'ai plongé dans le cœur mathématique de l'analyse algorithmique : la notation asymptotique. Avant ce cours, j'utilisais intuitivement "c'est en O(n²)" sans jamais avoir vu la définition formelle. Découvrir que O(f(n)) désigne un ensemble de fonctions, et non une fonction unique, a changé profondément ma compréhension.
+
+La définition formelle — f(n) = O(g(n)) ssi il existe c > 0 et n₀ ≥ 1 tels que ∀n ≥ n₀, f(n) ≤ c · g(n) — m'a d'abord semblé abstraite. Mais les exercices de vérification (trouver c et n₀ pour des exemples concrets) m'ont aidé à l'ancrer. J'ai notamment travaillé sur f(n) = 3n² + 5n + 2 et montré que c'est O(n²) en choisissant c = 4 et n₀ = 6.
+
+Ma principale difficulté reste de distinguer Θ et O dans des situations réelles : quand peut-on affirmer Θ plutôt que simplement O ? J'ai compris que Θ est une borne exacte (borne supérieure et inférieure), mais trouver la borne inférieure (Ω) par preuve formelle est encore laborieux pour moi.
+
+J'ai aussi eu du mal avec les propriétés transitives et les règles de somme et de produit des notations. Je dois consolider ces règles de calcul qui accélèrent l'analyse sans avoir à reprendre la définition formelle à chaque fois.
+      </div>
+    </section>
+
+    <!-- ── Section 2 ── -->
+    <section class="card">
+      <h2><span class="icon">🧠</span> 2. Synthèse personnelle des concepts clés</h2>
+      <div contenteditable="true" data-key="lecon2-synthese">
+La notation asymptotique décrit le comportement d'une fonction T(n) (coût d'un algorithme) pour de grandes valeurs de n, en ignorant les constantes multiplicatives et les termes d'ordre inférieur.
+
+• O (Grand O) – borne supérieure : T(n) = O(f(n)) signifie que T(n) croît au plus aussi vite que f(n). Formellement : ∃c > 0, ∃n₀ ≥ 1, ∀n ≥ n₀ : T(n) ≤ c · f(n).
+
+• Ω (Grand Oméga) – borne inférieure : T(n) = Ω(f(n)) signifie que T(n) croît au moins aussi vite que f(n). Formellement : ∃c > 0, ∃n₀ ≥ 1, ∀n ≥ n₀ : T(n) ≥ c · f(n).
+
+• Θ (Grand Thêta) – borne exacte : T(n) = Θ(f(n)) ssi T(n) = O(f(n)) ET T(n) = Ω(f(n)). Cela signifie que T(n) et f(n) ont le même ordre de croissance.
+
+Hiérarchie des classes courantes (croissance croissante) :
+O(1) ⊂ O(log n) ⊂ O(n) ⊂ O(n log n) ⊂ O(n²) ⊂ O(n³) ⊂ O(2ⁿ) ⊂ O(n!)
+
+Règles de calcul utiles : si T₁(n) = O(f(n)) et T₂(n) = O(g(n)) alors T₁ + T₂ = O(max(f,g)) et T₁ · T₂ = O(f · g).
+      </div>
+    </section>
+
+    <!-- ── Section 3 ── -->
+    <section class="card">
+      <h2><span class="icon">🛠️</span> 3. Application pratique dans mon contexte</h2>
+      <div contenteditable="true" data-key="lecon2-application">
+Dans un projet universitaire de traitement de données génomiques, nous avions un algorithme d'alignement de séquences dont le temps d'exécution explosait au-delà de 10 000 séquences. Je savais que "c'était lent" mais je n'avais pas le vocabulaire formel pour analyser et communiquer le problème.
+
+Avec la notation asymptotique, j'ai pu analyser notre algorithme : il comportait une double boucle sur les paires de séquences, soit O(n²) comparaisons, chacune prenant O(L) temps (L = longueur des séquences). Complexité totale : O(n² · L). En doublant n, le temps quadruplait — ce qui correspond exactement à O(n²).
+
+J'ai proposé de remplacer la comparaison exhaustive par un filtrage préalable basé sur un index de k-mers (hachage), ramenant le nombre de comparaisons effectives à O(n · k) en pratique. Cette optimisation était justifiable formellement et non pas juste "une intuition".
+
+La notation asymptotique est devenue mon outil de communication avec l'équipe pour justifier des choix d'architecture : "cette approche est O(n log n) vs O(n²), c'est pourquoi elle passera à l'échelle".
+      </div>
+    </section>
+
+    <!-- ── Section 4 ── -->
+    <section class="card">
+      <h2><span class="icon">🔍</span> 4. Auto-évaluation et méta-cognition</h2>
+      <div class="eval-grid">
+        <div class="eval-item">
+          <label>✅ Ce que je maîtrise bien :</label>
+          <div contenteditable="true" data-key="lecon2-maitrise">La définition formelle de O, Ω, et Θ avec les constantes c et n₀. La hiérarchie des classes de complexité. L'application des règles de somme et produit pour simplifier des expressions. Identifier la classe de complexité d'un algorithme à boucles simples ou imbriquées.</div>
+        </div>
+        <div class="eval-item">
+          <label>⚠️ Ce que je dois améliorer :</label>
+          <div contenteditable="true" data-key="lecon2-ameliorer">Construire des preuves de borne inférieure Ω, qui nécessitent de montrer qu'aucun algorithme ne peut faire mieux. Distinguer clairement o (petit o) et ω (petit oméga) de leurs équivalents grands. Analyser des algorithmes dont la complexité dépend de plusieurs paramètres (ex. : graphes avec n sommets et m arêtes).</div>
+        </div>
+        <div class="eval-item">
+          <label>🎯 Stratégie pour progresser :</label>
+          <div contenteditable="true" data-key="lecon2-strategie">Résoudre dix preuves de complexité tirées des exercices CLRS (chapitres 3 et 4), en alternant O, Ω et Θ. Pour chaque preuve, expliciter c et n₀ plutôt que de les laisser implicites. Vérifier mes réponses avec un camarade avant la prochaine séance.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Navigation ── -->
+    <nav class="lesson-nav">
+      <a href="lecon1.html">← Leçon 1</a>
+      <a href="lecon3.html">Leçon 3 →</a>
+    </nav>
+  </div>
+</main>
+
+<footer>
+  Portfolio Évolutif – UE Algorithmique et Complexité &nbsp;|&nbsp; M1 &nbsp;|&nbsp;
+  Les modifications sont sauvegardées localement dans votre navigateur.
+</footer>
+
+<script src="portfolio.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leçon 1 – Introduction à l'Algorithmique | Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <h1>📒 Portfolio Évolutif – Algorithmique et Complexité</h1>
+  <p>M1 – Leçon 1 : Introduction à l'Algorithmique</p>
+</header>
+
+<a class="back-link" href="index.html">← Retour au portfolio</a>
+
+<main>
+  <div id="lecon1" data-lesson-id="lecon1">
+    <h1 class="lesson-title">Leçon 1 – Introduction à l'Algorithmique</h1>
+
+    <div class="save-bar">
+      <button class="save-btn" data-save="lecon1">💾 Enregistrer mes notes</button>
+      <div class="save-notice" id="save-notice"></div>
+    </div>
+
+    <!-- ── Section 1 ── -->
+    <section class="card">
+      <h2><span class="icon">📝</span> 1. Journal d'apprentissage réflexif</h2>
+      <div contenteditable="true" data-key="lecon1-journal">
+Cette semaine a marqué mon entrée dans le monde de l'algorithmique au niveau Master. Au départ, je pensais connaître ce qu'est un algorithme — une suite d'instructions — mais j'ai réalisé que la notion est bien plus précise et exigeante. Un algorithme doit être fini, déterministe, correct et efficace. Cette quadruple exigence m'a surpris, surtout la notion de correction formelle : il ne suffit pas qu'un programme "marche", il faut pouvoir le prouver.
+
+J'ai aussi découvert la différence fondamentale entre un algorithme (objet mathématique abstrait) et son implémentation dans un langage de programmation. Cette distinction m'a permis de comprendre pourquoi on analyse la complexité de manière indépendante du matériel.
+
+Ma principale difficulté a été de formuler des invariants de boucle pour prouver la correction d'algorithmes simples comme la recherche séquentielle. La notion d'invariant me semblait évidente une fois donnée, mais trouver le bon invariant par moi-même est encore laborieux. J'ai dû relire plusieurs fois les notes du cours et chercher des exemples supplémentaires en ligne.
+
+Ce que j'ai apprécié : les exercices pratiques sur des algorithmes quotidiens (recette de cuisine, chemin GPS) qui rendent la notion très concrète. Mon ressenti général est positif, même si le rythme de la leçon est soutenu.
+      </div>
+    </section>
+
+    <!-- ── Section 2 ── -->
+    <section class="card">
+      <h2><span class="icon">🧠</span> 2. Synthèse personnelle des concepts clés</h2>
+      <div contenteditable="true" data-key="lecon1-synthese">
+Un algorithme est une procédure finie, non ambiguë et efficace qui résout un problème bien défini. Il possède quatre propriétés essentielles : (1) la finitude — il termine toujours, (2) le déterminisme — à même entrée, même exécution, (3) la correction — il produit le résultat attendu, et (4) l'efficacité — il utilise raisonnablement les ressources.
+
+La complexité algorithmique mesure le coût d'exécution d'un algorithme (temps ou espace) en fonction de la taille n de l'entrée. On distingue le meilleur cas (Ω), le pire cas (O) et le cas moyen (Θ lorsque les deux coïncident). Ces mesures sont indépendantes du matériel car elles comptent des opérations élémentaires, pas des nanosecondes.
+
+La notion de correction formelle repose sur la définition d'un invariant de boucle : une propriété vraie avant la première itération, maintenue à chaque itération, et qui implique la correction du résultat à la sortie de la boucle. C'est la base de la vérification formelle de programmes.
+
+Exemples : la recherche séquentielle a une complexité O(n) dans le pire cas (élément absent ou en dernière position) et O(1) dans le meilleur cas (élément en première position).
+      </div>
+    </section>
+
+    <!-- ── Section 3 ── -->
+    <section class="card">
+      <h2><span class="icon">🛠️</span> 3. Application pratique dans mon contexte</h2>
+      <div contenteditable="true" data-key="lecon1-application">
+Dans mon stage de l'année précédente, j'avais écrit une fonction de recherche d'un client dans une liste non triée de plusieurs milliers d'entrées. Je parcourais la liste de bout en bout à chaque requête. Je savais que c'était "lent" mais je n'avais pas les outils formels pour quantifier cela ni pour justifier une refonte.
+
+Avec les concepts de cette leçon, je peux maintenant dire précisément que cette recherche est O(n) dans le pire cas : si le client n'existe pas, on parcourt toute la liste. Avec 50 000 clients et 100 requêtes par minute, on réalise 5 millions d'opérations par minute juste pour la recherche. Remplacer la liste par un dictionnaire (table de hachage) ramènerait chaque recherche à O(1) amorti.
+
+De plus, l'outil de preuve par invariant m'est utile pour valider des boucles critiques dans le code de traitement de données que j'écris en Python. Je vais commencer à documenter les invariants de mes boucles importantes.
+      </div>
+    </section>
+
+    <!-- ── Section 4 ── -->
+    <section class="card">
+      <h2><span class="icon">🔍</span> 4. Auto-évaluation et méta-cognition</h2>
+      <div class="eval-grid">
+        <div class="eval-item">
+          <label>✅ Ce que je maîtrise bien :</label>
+          <div contenteditable="true" data-key="lecon1-maitrise">La définition et les quatre propriétés d'un algorithme. La distinction entre algorithme et programme. Le calcul de complexité dans le pire/meilleur cas sur des algorithmes simples (recherche séquentielle, somme d'un tableau). La notion de finitude et de terminaison.</div>
+        </div>
+        <div class="eval-item">
+          <label>⚠️ Ce que je dois améliorer :</label>
+          <div contenteditable="true" data-key="lecon1-ameliorer">La construction autonome d'invariants de boucle pour des algorithmes non triviaux. La distinction rigoureuse entre complexité dans le cas moyen et complexité dans le pire cas quand la distribution des entrées est non uniforme.</div>
+        </div>
+        <div class="eval-item">
+          <label>🎯 Stratégie pour progresser :</label>
+          <div contenteditable="true" data-key="lecon1-strategie">Pratiquer la preuve par invariant sur au moins trois algorithmes différents cette semaine (ex. : tri à bulles, recherche binaire, algorithme d'Euclide). Relire le chapitre sur la correction formelle dans le livre CLRS (Introduction to Algorithms) et noter les techniques d'invariant utilisées.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Navigation ── -->
+    <nav class="lesson-nav">
+      <span></span>
+      <a href="lecon2.html">Leçon 2 →</a>
+    </nav>
+  </div>
+</main>
+
+<footer>
+  Portfolio Évolutif – UE Algorithmique et Complexité &nbsp;|&nbsp; M1 &nbsp;|&nbsp;
+  Les modifications sont sauvegardées localement dans votre navigateur.
+</footer>
+
+<script src="portfolio.js"></script>
+</body>
+</html>

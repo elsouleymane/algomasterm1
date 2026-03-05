@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leçon 3 – Algorithmes de Tri | Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <h1>📒 Portfolio Évolutif – Algorithmique et Complexité</h1>
+  <p>M1 – Leçon 3 : Algorithmes de Tri</p>
+</header>
+
+<a class="back-link" href="index.html">← Retour au portfolio</a>
+
+<main>
+  <div id="lecon3" data-lesson-id="lecon3">
+    <h1 class="lesson-title">Leçon 3 – Algorithmes de Tri</h1>
+
+    <div class="save-bar">
+      <button class="save-btn" data-save="lecon3">💾 Enregistrer mes notes</button>
+      <div class="save-notice" id="save-notice"></div>
+    </div>
+
+    <!-- ── Section 1 ── -->
+    <section class="card">
+      <h2><span class="icon">📝</span> 1. Journal d'apprentissage réflexif</h2>
+      <div contenteditable="true" data-key="lecon3-journal">
+La leçon sur les algorithmes de tri a été à la fois la plus dense et la plus enrichissante du semestre jusqu'ici. Nous avons étudié six algorithmes en une seule semaine : tri par insertion, tri par sélection, tri à bulles, tri fusion (MergeSort), tri rapide (QuickSort) et tri par tas (HeapSort).
+
+Ce qui m'a le plus frappé : l'écart de performance entre les tris en O(n²) et ceux en O(n log n) est colossal sur de grandes données. Sur 100 000 éléments, un tri en O(n²) effectue ~10 milliards d'opérations, contre ~1,7 million pour O(n log n). Visualiser cela par les courbes de croissance m'a convaincu de l'importance du choix d'algorithme.
+
+La récursivité de MergeSort m'a posé problème au départ : je voyais que "ça marche" mais je ne comprenais pas pourquoi diviser en deux moitiés garantit O(n log n). Le dessin de l'arbre de récursion — profondeur log n, niveau coûtant O(n) — a tout clarifié.
+
+QuickSort m'a surpris : ses performances moyennes sont excellentes (O(n log n) et constante petite), mais son pire cas est O(n²). J'ai du mal à intuitionner quand ce pire cas se produit vraiment (tableau déjà trié avec pivot = premier élément). La stratégie de pivot aléatoire ou médiane-de-trois est claire en principe mais je dois encore l'implémenter.
+
+Une frustration : la preuve de la borne inférieure Ω(n log n) pour tout tri par comparaison (via l'arbre de décision) est la preuve la plus élégante du cours, mais je dois la relire deux fois pour être capable de la reproduire.
+      </div>
+    </section>
+
+    <!-- ── Section 2 ── -->
+    <section class="card">
+      <h2><span class="icon">🧠</span> 2. Synthèse personnelle des concepts clés</h2>
+      <div contenteditable="true" data-key="lecon3-synthese">
+Les algorithmes de tri se classent en deux grandes familles selon leur complexité et leur stratégie :
+
+Tris quadratiques — O(n²) dans le pire cas :
+• Tri par insertion : insert chaque élément à sa place dans la partie déjà triée. Efficace sur des tableaux presque triés (O(n) dans le meilleur cas). En place, stable.
+• Tri par sélection : sélectionne le minimum du reste et l'échange. Toujours O(n²) quels que soient les données. En place, non stable.
+• Tri à bulles : compare et échange les voisins. Mauvaises performances, principalement pédagogique.
+
+Tris efficaces — O(n log n) :
+• MergeSort : divise le tableau en deux moitiés, trie récursivement, fusionne en O(n). Stable, mais nécessite O(n) mémoire supplémentaire. Garanti O(n log n) dans tous les cas.
+• QuickSort : choisit un pivot, partitionne, trie récursivement les deux parties. En place, O(n log n) en moyenne mais O(n²) dans le pire cas. Non stable. En pratique très rapide (petite constante).
+• HeapSort : construit un tas puis extrait les éléments dans l'ordre. En place, O(n log n) garanti, non stable.
+
+Borne inférieure : tout tri par comparaison nécessite au moins Ω(n log n) comparaisons dans le pire cas (preuve par arbre de décision à n! feuilles, hauteur ≥ log₂(n!)).
+
+Tris linéaires (non comparaison) : CountingSort O(n+k), RadixSort O(d·(n+k)), BucketSort O(n) en moyenne. Applicables sous hypothèses restrictives sur les entrées.
+
+Stabilité : un tri est stable s'il préserve l'ordre relatif des éléments de même clé. Essentiel pour les tris multi-critères.
+      </div>
+    </section>
+
+    <!-- ── Section 3 ── -->
+    <section class="card">
+      <h2><span class="icon">🛠️</span> 3. Application pratique dans mon contexte</h2>
+      <div contenteditable="true" data-key="lecon3-application">
+Dans un projet académique de gestion des résultats d'examens pour 3 000 étudiants, nous devions trier les étudiants par moyenne puis par nom (tri multi-critères). Le code initial utilisait un tri par insertion implémenté "à la main" : correct mais lent (plusieurs secondes).
+
+Après cette leçon, j'ai appliqué deux améliorations :
+1. Remplacement par MergeSort natif de Python (sort() / sorted() utilise TimSort, une variante hybride O(n log n)). Le tri est passé de ~4 secondes à moins de 0,1 seconde.
+2. Pour le tri multi-critères, j'ai exploité la stabilité de TimSort : tri d'abord par nom (critère secondaire), puis par moyenne (critère primaire). La stabilité garantit que les ex-æquo restent triés par nom.
+
+Cette optimisation m'a aussi appris à ne pas "reinventer la roue" : les bibliothèques standard implémentent des tris optimisés qu'il vaut mieux utiliser que de réécrire. Mon rôle en tant qu'algorithmicien est de comprendre QUAND utiliser quel tri, pas forcément de tout implémenter de zéro.
+
+Application future : pour des données de très grande taille déjà partiellement triées (ex. logs de serveur quotidiens), le tri par insertion sur les nouvelles entrées du jour serait optimal (O(k) pour k nouvelles entrées insérées dans n entrées triées).
+      </div>
+    </section>
+
+    <!-- ── Section 4 ── -->
+    <section class="card">
+      <h2><span class="icon">🔍</span> 4. Auto-évaluation et méta-cognition</h2>
+      <div class="eval-grid">
+        <div class="eval-item">
+          <label>✅ Ce que je maîtrise bien :</label>
+          <div contenteditable="true" data-key="lecon3-maitrise">La comparaison systématique des tris (complexité, stabilité, mémoire). L'implémentation et l'analyse de MergeSort par arbre de récursion. Le choix du bon algorithme de tri selon le contexte (données presque triées → insertion, données générales → MergeSort/QuickSort). La borne inférieure Ω(n log n) et son argument par arbre de décision.</div>
+        </div>
+        <div class="eval-item">
+          <label>⚠️ Ce que je dois améliorer :</label>
+          <div contenteditable="true" data-key="lecon3-ameliorer">L'implémentation correcte de QuickSort avec pivot aléatoire ou médiane-de-trois pour éviter le pire cas. L'analyse de la complexité moyenne de QuickSort (nécessite un raisonnement probabiliste que je n'ai pas encore bien intégré). L'implémentation de HeapSort depuis zéro, en particulier la procédure heapify.</div>
+        </div>
+        <div class="eval-item">
+          <label>🎯 Stratégie pour progresser :</label>
+          <div contenteditable="true" data-key="lecon3-strategie">Implémenter QuickSort avec trois variantes de pivot (premier élément, aléatoire, médiane-de-trois) et tester sur des tableaux triés, inversés et aléatoires pour observer empiriquement les différences. Mesurer les temps réels avec time.perf_counter() et créer un graphique de comparaison. Lire l'analyse probabiliste de QuickSort dans CLRS section 7.4.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Navigation ── -->
+    <nav class="lesson-nav">
+      <a href="lecon2.html">← Leçon 2</a>
+      <a href="lecon4.html">Leçon 4 →</a>
+    </nav>
+  </div>
+</main>
+
+<footer>
+  Portfolio Évolutif – UE Algorithmique et Complexité &nbsp;|&nbsp; M1 &nbsp;|&nbsp;
+  Les modifications sont sauvegardées localement dans votre navigateur.
+</footer>
+
+<script src="portfolio.js"></script>
+</body>
+</html>
