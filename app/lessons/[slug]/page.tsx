@@ -24,38 +24,38 @@ export default function LessonDetailPage() {
   const [showBilan, setShowBilan] = useState(false)
 
   useEffect(() => {
-    loadData()
-  }, [params.slug]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  const loadData = async () => {
-    try {
-      const slug = params.slug as string
-      const [lessonsData, lessonData, profileData, bilanData] = await Promise.all([
-        fetchLessons(),
-        fetchLessonBySlug(slug),
-        fetchProfile(),
-        fetchFinalAssessment(),
-      ])
-
-      setLessons(lessonsData)
-      setSelectedLesson(lessonData)
-      setProfile(profileData)
-      setFinalAssessment(bilanData)
-    } catch (error) {
-      console.error('Erreur chargement:', error)
-      toast.error('Leçon introuvable')
+    const loadData = async () => {
       try {
-        const lessonsData = await fetchLessons()
-        if (lessonsData.length > 0) {
-          router.push(`/lessons/${lessonsData[0].slug}`)
+        const slug = params.slug as string
+        const [lessonsData, lessonData, profileData, bilanData] = await Promise.all([
+          fetchLessons(),
+          fetchLessonBySlug(slug),
+          fetchProfile(),
+          fetchFinalAssessment(),
+        ])
+
+        setLessons(lessonsData)
+        setSelectedLesson(lessonData)
+        setProfile(profileData)
+        setFinalAssessment(bilanData)
+      } catch (error) {
+        console.error('Erreur chargement:', error)
+        toast.error('Leçon introuvable')
+        try {
+          const lessonsData = await fetchLessons()
+          if (lessonsData.length > 0) {
+            router.push(`/lessons/${lessonsData[0].slug}`)
+          }
+        } catch {
+          // Ignore
         }
-      } catch {
-        // Ignore
+      } finally {
+        setLoading(false)
       }
-    } finally {
-      setLoading(false)
     }
-  }
+
+    loadData()
+  }, [params.slug, router])
 
   const handleShare = async () => {
     const url = window.location.href

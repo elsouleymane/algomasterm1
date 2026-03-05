@@ -44,21 +44,21 @@ export default function AdminDashboardPage() {
   })
 
   useEffect(() => {
-    checkAuth()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  const checkAuth = async () => {
-    try {
-      const user = await getCurrentUser()
-      if (!user) {
+    const checkAuth = async () => {
+      try {
+        const user = await getCurrentUser()
+        if (!user) {
+          router.push('/admin/login')
+          return
+        }
+        await loadData()
+      } catch {
         router.push('/admin/login')
-        return
       }
-      await loadData()
-    } catch {
-      router.push('/admin/login')
     }
-  }
+
+    checkAuth()
+  }, [router]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadData = async () => {
     try {
