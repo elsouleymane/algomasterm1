@@ -136,7 +136,7 @@ export default function AdminDashboardPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-        <div className="w-16 h-16 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin" />
+        <div className="w-16 h-16 border-4 border-green-500 border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -147,7 +147,7 @@ export default function AdminDashboardPage() {
       <div className="min-h-screen bg-slate-950 text-white">
         <header className="border-b border-white/10 backdrop-blur-xl bg-slate-950/80">
           <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-600 bg-clip-text text-transparent">
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-green-400 to-green-600 bg-clip-text text-transparent">
               Administration
             </h1>
             <button
@@ -171,7 +171,7 @@ export default function AdminDashboardPage() {
               <h2 className="text-2xl font-bold">Profil</h2>
               <button
                 onClick={() => editingProfile ? handleSaveProfile() : setEditingProfile(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 rounded-xl transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-green-500/10 hover:bg-green-500/20 text-green-400 rounded-xl transition-colors"
               >
                 {editingProfile ? <Save className="w-4 h-4" /> : <Edit className="w-4 h-4" />}
                 {editingProfile ? 'Sauvegarder' : 'Modifier'}
@@ -219,7 +219,7 @@ export default function AdminDashboardPage() {
             ) : (
               <div className="space-y-2">
                 <p className="text-lg font-semibold">{profile?.name}</p>
-                <p className="text-cyan-400">{profile?.title}</p>
+                <p className="text-green-400">{profile?.title}</p>
                 <p className="text-gray-400">{profile?.bio}</p>
               </div>
             )}
@@ -234,12 +234,12 @@ export default function AdminDashboardPage() {
           >
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-bold flex items-center gap-2">
-                <BookOpen className="w-6 h-6 text-cyan-400" />
+                <BookOpen className="w-6 h-6 text-green-400" />
                 Leçons ({lessons.length})
               </h2>
               <button
                 onClick={() => { setEditingLesson(null); setShowModal(true) }}
-                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-semibold hover:shadow-lg hover:shadow-cyan-500/25 transition-all"
+                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-600 to-green-700 rounded-xl font-semibold hover:shadow-lg hover:shadow-green-500/25 transition-all"
               >
                 <Plus className="w-4 h-4" />
                 Ajouter

@@ -6,7 +6,6 @@ import { Code2, Github, Linkedin, Mail, Download, ExternalLink } from 'lucide-re
 import Link from 'next/link'
 import { fetchLessons, fetchProfile, Profile, Lesson } from '@/lib/supabase'
 import ModernBackground from '@/components/ModernBackground'
-import CustomCursor from '@/components/CustomCursor'
 import ProfilePhoto from '@/components/ProfilePhoto'
 import LessonTimeline from '@/components/LessonTimeline'
 import toast, { Toaster } from 'react-hot-toast'
@@ -43,7 +42,7 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950">
+      <div className="min-h-screen flex items-center justify-center bg-slate-950">
         <motion.div
           animate={{
             rotate: 360,
@@ -53,7 +52,7 @@ export default function Home() {
             repeat: Infinity,
             ease: 'linear',
           }}
-          className="w-16 h-16 border-4 border-cyan-500 border-t-transparent rounded-full"
+          className="w-12 h-12 border-3 border-green-500 border-t-transparent rounded-full"
         />
       </div>
     )
@@ -62,53 +61,46 @@ export default function Home() {
   return (
     <>
       <Toaster position="top-right" />
-      <CustomCursor />
       <ModernBackground />
 
       <div className="relative min-h-screen text-white overflow-hidden">
         <motion.header
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-white/5 border-b border-white/10"
+          transition={{ duration: 0.6 }}
+          className="fixed top-0 left-0 right-0 z-50 backdrop-blur-lg bg-slate-950/70 border-b border-white/5"
         >
           <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
-            <motion.div
-              whileHover={{ scale: 1.05, rotate: 5 }}
-              className="flex items-center space-x-3"
-            >
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/50">
-                <Code2 className="w-6 h-6" />
+            <Link href="/" className="flex items-center space-x-3">
+              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center">
+                <Code2 className="w-5 h-5" />
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-                AlgoMaster Portfolio
+              <span className="text-xl font-bold text-white">
+                AlgoMaster
               </span>
-            </motion.div>
+            </Link>
 
             <div className="flex items-center space-x-6">
-              <Link href="/about" className="hover:text-cyan-400 transition-colors relative group">
+              <Link href="/about" className="text-gray-400 hover:text-green-400 transition-colors text-sm font-medium">
                 À propos
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 transition-all group-hover:w-full" />
               </Link>
-              <Link href="/lessons" className="hover:text-cyan-400 transition-colors relative group">
+              <Link href="/lessons" className="text-gray-400 hover:text-green-400 transition-colors text-sm font-medium">
                 Leçons
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 transition-all group-hover:w-full" />
               </Link>
-              <Link href="/contact" className="hover:text-cyan-400 transition-colors relative group">
+              <Link href="/contact" className="text-gray-400 hover:text-green-400 transition-colors text-sm font-medium">
                 Contact
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 transition-all group-hover:w-full" />
               </Link>
             </div>
           </nav>
         </motion.header>
 
         <section id="about" className="min-h-screen flex items-center justify-center pt-20 px-6">
-          <div className="container mx-auto">
+          <div className="container mx-auto max-w-5xl">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <motion.div
-                initial={{ opacity: 0, x: -100, rotateY: -90 }}
-                animate={{ opacity: 1, x: 0, rotateY: 0 }}
-                transition={{ duration: 1, type: 'spring' }}
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7 }}
                 className="flex justify-center"
               >
                 <ProfilePhoto
@@ -119,53 +111,43 @@ export default function Home() {
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, x: 100 }}
+                initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.3 }}
+                transition={{ duration: 0.7, delay: 0.2 }}
               >
                 <motion.h1
-                  className="text-5xl md:text-7xl font-bold mb-6"
+                  className="text-4xl md:text-5xl font-bold mb-6 leading-tight"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
+                  transition={{ delay: 0.4 }}
                 >
-                  <span className="inline-block">
-                    {(profile?.name || 'El adj Souleymane Nuhu').split(' ').map((word, i, arr) => (
-                      <motion.span
-                        key={i}
-                        className="inline-block mr-3"
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5 + i * 0.1 }}
-                      >
-                        {i === arr.length - 1 ? (
-                          <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-                            {word}
-                          </span>
-                        ) : (
-                          word
-                        )}
-                      </motion.span>
-                    ))}
-                  </span>
+                  {(profile?.name || 'El adj Souleymane Nuhu').split(' ').map((word, i, arr) => (
+                    <span key={i} className="inline-block mr-2">
+                      {i === arr.length - 1 ? (
+                        <span className="text-green-400">{word}</span>
+                      ) : (
+                        word
+                      )}
+                    </span>
+                  ))}
                 </motion.h1>
 
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 0.7 }}
+                  transition={{ delay: 0.5 }}
                   className="space-y-4 mb-8"
                 >
-                  <h2 className="text-2xl md:text-3xl text-cyan-400 font-semibold">
+                  <h2 className="text-xl md:text-2xl text-orange-400 font-medium">
                     {profile?.title || 'Étudiant Master 1 Big Data Analytics'}
                   </h2>
 
-                  <div className="flex items-center space-x-2 text-gray-400">
-                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                  <div className="flex items-center space-x-2 text-gray-500 text-sm">
+                    <div className="w-2 h-2 rounded-full bg-green-500" />
                     <span>Disponible pour des opportunités</span>
                   </div>
 
-                  <p className="text-lg text-gray-300 leading-relaxed">
+                  <p className="text-gray-400 leading-relaxed">
                     {profile?.bio || 'Passionné par l\'algorithmique, la data science et le développement full-stack. Je documente mon parcours d\'apprentissage à travers ce portfolio évolutif.'}
                   </p>
                 </motion.div>
@@ -173,60 +155,55 @@ export default function Home() {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.9 }}
-                  className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"
+                  transition={{ delay: 0.6 }}
+                  className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8"
                 >
                   {[
-                    {
-                      label: 'Leçons',
-                      value: lessons.length,
-                      color: 'from-green-500 to-emerald-500'
-                    },
+                    { label: 'Leçons', value: lessons.length, color: 'text-green-400' },
                     {
                       label: 'Semaines',
                       value: lessons.length > 0 ? Math.max(...lessons.map(l => l.week_number || 0)) : 0,
-                      color: 'from-orange-500 to-amber-500'
+                      color: 'text-orange-400'
                     },
                     {
                       label: 'Réflexions',
                       value: lessons.filter(l => l.journal_reflexif && l.journal_reflexif.length > 100).length,
-                      color: 'from-blue-500 to-cyan-500'
+                      color: 'text-green-400'
                     },
                     {
                       label: 'Synthèses',
                       value: lessons.filter(l => l.synthese_personnelle && l.synthese_personnelle.length > 50).length,
-                      color: 'from-purple-500 to-pink-500'
+                      color: 'text-orange-400'
                     },
                   ].map((stat, i) => (
-                    <motion.div
+                    <div
                       key={i}
-                      whileHover={{ scale: 1.05, y: -5 }}
-                      className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-4 text-center"
+                      className="bg-white/5 border border-white/5 rounded-xl p-3 text-center"
                     >
-                      <div className={`text-3xl font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent mb-1`}>
+                      <div className={`text-2xl font-bold ${stat.color} mb-1`}>
                         {stat.value}
                       </div>
-                      <div className="text-sm text-gray-400">{stat.label}</div>
-                    </motion.div>
+                      <div className="text-xs text-gray-500">{stat.label}</div>
+                    </div>
                   ))}
                 </motion.div>
 
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.1 }}
-                  className="flex flex-wrap gap-4 mb-8"
+                  transition={{ delay: 0.7 }}
+                  className="flex flex-wrap gap-3 mb-8"
                 >
                   <Link
                     href="/lessons"
-                    className="group px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 flex items-center space-x-2"
+                    className="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-lg font-medium transition-colors flex items-center space-x-2 text-sm"
                   >
                     <span>Explorer les Leçons</span>
-                    <ExternalLink className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    <ExternalLink className="w-4 h-4" />
                   </Link>
 
-                  <button className="px-8 py-4 border-2 border-cyan-400 rounded-full font-semibold hover:bg-cyan-400/10 transition-all duration-300 flex items-center space-x-2">
-                    <Download className="w-5 h-5" />
+                  <button className="px-6 py-3 border border-white/10 rounded-lg font-medium hover:bg-white/5 transition-colors flex items-center space-x-2 text-sm text-gray-300">
+                    <Download className="w-4 h-4" />
                     <span>Télécharger CV</span>
                   </button>
                 </motion.div>
@@ -234,26 +211,24 @@ export default function Home() {
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 1.3 }}
-                  className="flex space-x-4"
+                  transition={{ delay: 0.8 }}
+                  className="flex space-x-3"
                 >
                   {[
                     { icon: Github, url: profile?.github_url || 'https://github.com/elsouleymane', label: 'GitHub' },
                     { icon: Linkedin, url: profile?.linkedin_url || '#', label: 'LinkedIn' },
                     { icon: Mail, url: `mailto:${profile?.email || 'contact@example.com'}`, label: 'Email' },
                   ].map((social, i) => (
-                    <motion.a
+                    <a
                       key={i}
                       href={social.url || '#'}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ scale: 1.2, rotate: 5 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="p-4 backdrop-blur-xl bg-white/5 border border-white/10 rounded-full hover:bg-white/10 transition-colors group"
+                      className="p-3 bg-white/5 border border-white/5 rounded-lg hover:bg-white/10 transition-colors"
                       title={social.label}
                     >
-                      <social.icon className="w-6 h-6 group-hover:text-cyan-400 transition-colors" />
-                    </motion.a>
+                      <social.icon className="w-5 h-5 text-gray-400 hover:text-green-400 transition-colors" />
+                    </a>
                   ))}
                 </motion.div>
               </motion.div>
@@ -264,24 +239,17 @@ export default function Home() {
         <section id="lessons" className="py-20 px-6">
           <div className="container mx-auto">
             <motion.div
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.6 }}
               className="text-center mb-16"
             >
-              <motion.h2
-                className="text-5xl md:text-6xl font-bold mb-4"
-                initial={{ opacity: 0, scale: 0.5 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-              >
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">
                 Parcours d&apos;
-                <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-                  Apprentissage
-                </span>
-              </motion.h2>
-              <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+                <span className="text-green-400">Apprentissage</span>
+              </h2>
+              <p className="text-gray-500 max-w-2xl mx-auto">
                 Découvrez mes réflexions, applications pratiques et auto-évaluations
                 pour chaque leçon du cours d&apos;Algorithmique et Complexité
               </p>
@@ -291,27 +259,23 @@ export default function Home() {
           </div>
         </section>
 
-        <footer className="py-12 border-t border-white/10 backdrop-blur-xl bg-white/5">
+        <footer className="py-10 border-t border-white/5 bg-slate-950/50">
           <div className="container mx-auto px-6">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <div className="text-center md:text-left mb-4 md:mb-0">
-                <p className="text-gray-400">
+                <p className="text-gray-500 text-sm">
                   © 2025 {profile?.name || 'El adj Souleymane Nuhu'} - Courses Portfolio
                 </p>
-                <p className="text-sm text-gray-500 mt-2">
+                <p className="text-xs text-gray-600 mt-1">
                   Université Virtuelle de Côte d&apos;Ivoire (UVCI) | Master Big Data Analytics
                 </p>
               </div>
 
-              <div className="flex items-center space-x-4">
-                <span className="text-sm text-gray-500">Propulsé par</span>
-                <div className="flex items-center space-x-2">
-                  <span className="text-cyan-400 font-semibold">Next.js</span>
-                  <span className="text-gray-500">•</span>
-                  <span className="text-blue-400 font-semibold">Supabase</span>
-                  <span className="text-gray-500">•</span>
-                  <span className="text-purple-400 font-semibold">Three.js</span>
-                </div>
+              <div className="flex items-center space-x-3 text-xs text-gray-600">
+                <span>Propulsé par</span>
+                <span className="text-green-500 font-medium">Next.js</span>
+                <span>•</span>
+                <span className="text-green-500 font-medium">Supabase</span>
               </div>
             </div>
           </div>

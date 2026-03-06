@@ -7,7 +7,6 @@ import { Calendar, Edit3, FileText, Home, Share2 } from 'lucide-react'
 import Link from 'next/link'
 import { fetchLessons, fetchLessonBySlug, fetchProfile, fetchFinalAssessment, type Lesson, type Profile, type FinalAssessment } from '@/lib/supabase'
 import ModernBackground from '@/components/ModernBackground'
-import CustomCursor from '@/components/CustomCursor'
 import ProfilePhoto from '@/components/ProfilePhoto'
 import toast, { Toaster } from 'react-hot-toast'
 import Footer from '@/components/Footer'
@@ -70,7 +69,7 @@ export default function LessonDetailPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-        <div className="w-16 h-16 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin" />
+        <div className="w-12 h-12 border-3 border-green-500 border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -78,11 +77,10 @@ export default function LessonDetailPage() {
   return (
     <>
       <Toaster position="top-right" />
-      <CustomCursor />
       <ModernBackground />
 
       <div className="relative min-h-screen text-white">
-        <header className="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-white/10">
+        <header className="sticky top-0 z-50 backdrop-blur-lg bg-slate-950/70 border-b border-white/5">
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
@@ -94,15 +92,15 @@ export default function LessonDetailPage() {
                   />
                 )}
                 <div>
-                  <h1 className="text-2xl font-bold">AlgoMaster Portfolio</h1>
-                  <p className="text-sm text-gray-400">{profile?.title}</p>
+                  <h1 className="text-xl font-bold">AlgoMaster Portfolio</h1>
+                  <p className="text-sm text-gray-500">{profile?.title}</p>
                 </div>
               </div>
 
-              <div className="flex gap-4">
+              <div className="flex gap-3">
                 <Link
                   href="/"
-                  className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg transition-colors text-sm"
                 >
                   <Home className="w-4 h-4" />
                   <span className="hidden md:inline">Accueil</span>
@@ -113,23 +111,23 @@ export default function LessonDetailPage() {
         </header>
 
         <div className="container mx-auto px-4 py-6">
-          <div className="flex gap-4 mb-6 border-b border-white/10">
+          <div className="flex gap-4 mb-6 border-b border-white/5">
             <button
               onClick={() => setShowBilan(false)}
-              className={`px-6 py-3 font-semibold transition-all border-b-2 ${
+              className={`px-6 py-3 font-medium text-sm transition-all border-b-2 ${
                 !showBilan
-                  ? 'border-cyan-500 text-cyan-400'
-                  : 'border-transparent text-gray-400 hover:text-white'
+                  ? 'border-green-500 text-green-400'
+                  : 'border-transparent text-gray-500 hover:text-white'
               }`}
             >
               Leçons
             </button>
             <button
               onClick={() => setShowBilan(true)}
-              className={`px-6 py-3 font-semibold transition-all border-b-2 ${
+              className={`px-6 py-3 font-medium text-sm transition-all border-b-2 ${
                 showBilan
-                  ? 'border-cyan-500 text-cyan-400'
-                  : 'border-transparent text-gray-400 hover:text-white'
+                  ? 'border-green-500 text-green-400'
+                  : 'border-transparent text-gray-500 hover:text-white'
               }`}
             >
               Bilan Final
@@ -150,10 +148,10 @@ export default function LessonDetailPage() {
                       <Link
                         key={lesson.id}
                         href={`/lessons/${lesson.slug}`}
-                        className={`px-6 py-3 rounded-xl font-medium transition-all whitespace-nowrap ${
+                        className={`px-5 py-2.5 rounded-lg font-medium transition-all whitespace-nowrap text-sm ${
                           selectedLesson?.id === lesson.id
-                            ? 'bg-gradient-to-r from-cyan-600 to-blue-700 text-white shadow-lg'
-                            : 'bg-white/5 text-gray-300 hover:bg-white/10'
+                            ? 'bg-green-600 text-white'
+                            : 'bg-white/5 text-gray-400 hover:bg-white/10'
                         }`}
                       >
                         {lesson.title}
@@ -168,15 +166,15 @@ export default function LessonDetailPage() {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
-                    className="glass rounded-3xl p-8 border border-white/10"
+                    className="glass rounded-2xl p-8"
                   >
-                    <div className="mb-8 pb-6 border-b border-white/10">
+                    <div className="mb-8 pb-6 border-b border-white/5">
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex-1">
-                          <h2 className="text-3xl font-bold text-cyan-400 mb-4">
+                          <h2 className="text-2xl font-bold text-green-400 mb-4">
                             {selectedLesson.title}
                           </h2>
-                          <div className="flex items-center gap-4 text-sm text-gray-400 flex-wrap">
+                          <div className="flex items-center gap-4 text-sm text-gray-500 flex-wrap">
                             <span className="flex items-center gap-1">
                               <Calendar className="w-4 h-4" />
                               {new Date(selectedLesson.date).toLocaleDateString('fr-FR', {
@@ -186,7 +184,7 @@ export default function LessonDetailPage() {
                               })}
                             </span>
                             {selectedLesson.week_number && (
-                              <span className="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full">
+                              <span className="px-3 py-1 bg-green-500/10 text-green-400 rounded-full text-xs">
                                 Semaine {selectedLesson.week_number}
                               </span>
                             )}
@@ -196,14 +194,14 @@ export default function LessonDetailPage() {
                         <div className="flex gap-2">
                           <button
                             onClick={handleShare}
-                            className="flex items-center gap-2 px-4 py-2 bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 rounded-xl transition-colors"
+                            className="flex items-center gap-2 px-3 py-2 bg-orange-500/10 hover:bg-orange-500/20 text-orange-400 rounded-lg transition-colors text-sm"
                           >
                             <Share2 className="w-4 h-4" />
                             <span className="hidden md:inline">Partager</span>
                           </button>
                           <Link
                             href="/admin/dashboard"
-                            className="flex items-center gap-2 px-4 py-2 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 rounded-xl transition-colors"
+                            className="flex items-center gap-2 px-3 py-2 bg-green-500/10 hover:bg-green-500/20 text-green-400 rounded-lg transition-colors text-sm"
                           >
                             <Edit3 className="w-4 h-4" />
                             <span className="hidden md:inline">Modifier</span>
@@ -213,48 +211,48 @@ export default function LessonDetailPage() {
                     </div>
 
                     <div className="mb-8">
-                      <h3 className="text-xl font-bold text-white mb-4 pb-2 border-b-2 border-cyan-500">
+                      <h3 className="text-lg font-bold text-white mb-4 pb-2 border-b-2 border-green-500">
                         1. Journal d&apos;apprentissage réflexif
                       </h3>
                       <MarkdownRenderer content={selectedLesson.journal_reflexif} />
                     </div>
 
                     <div className="mb-8">
-                      <h3 className="text-xl font-bold text-white mb-4 pb-2 border-b-2 border-cyan-500">
+                      <h3 className="text-lg font-bold text-white mb-4 pb-2 border-b-2 border-green-500">
                         2. Synthèse personnelle des concepts clés
                       </h3>
                       <MarkdownRenderer content={selectedLesson.synthese_personnelle} />
                     </div>
 
                     <div className="mb-8">
-                      <h3 className="text-xl font-bold text-white mb-4 pb-2 border-b-2 border-cyan-500">
+                      <h3 className="text-lg font-bold text-white mb-4 pb-2 border-b-2 border-green-500">
                         3. Application pratique dans mon contexte
                       </h3>
                       <MarkdownRenderer content={selectedLesson.application_pratique} />
                     </div>
 
                     <div>
-                      <h3 className="text-xl font-bold text-white mb-4 pb-2 border-b-2 border-cyan-500">
+                      <h3 className="text-lg font-bold text-white mb-4 pb-2 border-b-2 border-green-500">
                         4. Auto-évaluation et méta-cognition
                       </h3>
 
-                      <div className="grid md:grid-cols-3 gap-6">
-                        <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-6">
-                          <h4 className="font-bold text-green-400 mb-3">
+                      <div className="grid md:grid-cols-3 gap-4">
+                        <div className="bg-green-500/10 border border-green-500/10 rounded-xl p-5">
+                          <h4 className="font-bold text-green-400 mb-3 text-sm">
                             Ce que je maîtrise bien :
                           </h4>
                           <MarkdownRenderer content={selectedLesson.maitrise_bien} />
                         </div>
 
-                        <div className="bg-orange-500/10 border border-orange-500/20 rounded-xl p-6">
-                          <h4 className="font-bold text-orange-400 mb-3">
+                        <div className="bg-orange-500/10 border border-orange-500/10 rounded-xl p-5">
+                          <h4 className="font-bold text-orange-400 mb-3 text-sm">
                             Ce que je dois améliorer :
                           </h4>
                           <MarkdownRenderer content={selectedLesson.a_ameliorer} />
                         </div>
 
-                        <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-6">
-                          <h4 className="font-bold text-blue-400 mb-3">
+                        <div className="bg-green-500/5 border border-green-500/10 rounded-xl p-5">
+                          <h4 className="font-bold text-green-300 mb-3 text-sm">
                             Stratégie pour progresser :
                           </h4>
                           <MarkdownRenderer content={selectedLesson.strategie_progression} />
@@ -266,8 +264,8 @@ export default function LessonDetailPage() {
 
                 {lessons.length === 0 && (
                   <div className="text-center py-20">
-                    <FileText className="w-16 h-16 mx-auto mb-4 text-gray-500" />
-                    <p className="text-gray-400">Aucune leçon disponible pour le moment</p>
+                    <FileText className="w-16 h-16 mx-auto mb-4 text-gray-600" />
+                    <p className="text-gray-500">Aucune leçon disponible pour le moment</p>
                   </div>
                 )}
               </motion.div>
@@ -277,49 +275,49 @@ export default function LessonDetailPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="glass rounded-3xl p-8 border border-white/10"
+                className="glass rounded-2xl p-8"
               >
-                <h2 className="text-3xl font-bold text-white mb-2">
+                <h2 className="text-2xl font-bold text-white mb-2">
                   Bilan final (à remplir en fin de semestre)
                 </h2>
-                <p className="text-gray-400 mb-8">
+                <p className="text-gray-500 mb-8 text-sm">
                   Réflexion globale sur l&apos;ensemble du cours
                 </p>
 
                 {finalAssessment && (
                   <div className="space-y-8">
                     <div>
-                      <h3 className="text-xl font-bold text-cyan-400 mb-4">
+                      <h3 className="text-lg font-bold text-green-400 mb-3">
                         1. Ce que j&apos;ai le plus appris dans ce cours :
                       </h3>
-                      <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                      <div className="bg-white/5 rounded-xl p-5">
                         <MarkdownRenderer content={finalAssessment.appris_plus} />
                       </div>
                     </div>
 
                     <div>
-                      <h3 className="text-xl font-bold text-cyan-400 mb-4">
+                      <h3 className="text-lg font-bold text-green-400 mb-3">
                         2. Les compétences que je peux réutiliser ailleurs :
                       </h3>
-                      <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                      <div className="bg-white/5 rounded-xl p-5">
                         <MarkdownRenderer content={finalAssessment.competences_reutilisables} />
                       </div>
                     </div>
 
                     <div>
-                      <h3 className="text-xl font-bold text-cyan-400 mb-4">
+                      <h3 className="text-lg font-bold text-green-400 mb-3">
                         3. Mon plus grand défi :
                       </h3>
-                      <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                      <div className="bg-white/5 rounded-xl p-5">
                         <MarkdownRenderer content={finalAssessment.plus_grand_defi} />
                       </div>
                     </div>
 
                     <div>
-                      <h3 className="text-xl font-bold text-cyan-400 mb-4">
+                      <h3 className="text-lg font-bold text-green-400 mb-3">
                         4. Mes prochaines étapes d&apos;apprentissage :
                       </h3>
-                      <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                      <div className="bg-white/5 rounded-xl p-5">
                         <MarkdownRenderer content={finalAssessment.prochaines_etapes} />
                       </div>
                     </div>

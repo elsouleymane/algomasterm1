@@ -26,15 +26,15 @@ const getWeekColor = (weekNumber: number | null) => {
   if (!weekNumber) return 'from-gray-400 to-gray-600'
 
   const colors = [
-    'from-cyan-400 to-blue-600',
-    'from-blue-400 to-purple-600',
-    'from-purple-400 to-pink-600',
-    'from-pink-400 to-red-600',
-    'from-red-400 to-orange-600',
-    'from-orange-400 to-yellow-600',
-    'from-yellow-400 to-green-600',
-    'from-green-400 to-teal-600',
-    'from-teal-400 to-cyan-600',
+    'from-green-500 to-green-700',
+    'from-orange-400 to-orange-600',
+    'from-green-400 to-emerald-600',
+    'from-amber-400 to-orange-600',
+    'from-emerald-400 to-green-600',
+    'from-orange-500 to-amber-600',
+    'from-green-500 to-teal-600',
+    'from-yellow-500 to-orange-600',
+    'from-teal-400 to-green-600',
   ]
 
   return colors[(weekNumber - 1) % colors.length]
@@ -61,7 +61,7 @@ export default function LessonTimeline({ lessons }: LessonTimelineProps) {
           animate={{ opacity: 1, scale: 1 }}
           className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-12 max-w-md mx-auto"
         >
-          <BookOpen className="w-16 h-16 mx-auto mb-4 text-cyan-400" />
+          <BookOpen className="w-16 h-16 mx-auto mb-4 text-green-400" />
           <h3 className="text-2xl font-bold mb-4">Aucune leçon disponible</h3>
           <p className="text-gray-400">
             Les leçons seront ajoutées au fur et à mesure de votre progression dans le cours d&apos;algorithmique.
@@ -74,9 +74,9 @@ export default function LessonTimeline({ lessons }: LessonTimelineProps) {
   return (
     <div className="relative">
       <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 overflow-hidden">
-        <div className="w-full h-full bg-gradient-to-b from-cyan-500 via-blue-500 to-purple-500 opacity-30" />
+        <div className="w-full h-full bg-gradient-to-b from-green-500 via-orange-500 to-green-500 opacity-20" />
         <motion.div
-          className="absolute top-0 w-full h-32 bg-gradient-to-b from-cyan-400 to-transparent"
+          className="absolute top-0 w-full h-32 bg-gradient-to-b from-green-400 to-transparent"
           animate={{
             y: ['0%', '800%', '0%'],
           }}
@@ -142,14 +142,14 @@ export default function LessonTimeline({ lessons }: LessonTimelineProps) {
                             </span>
                           )}
                           {masteryScore > 0 && (
-                            <span className="text-sm font-bold text-cyan-400 mt-1">
+                            <span className="text-sm font-bold text-green-400 mt-1">
                               Maîtrise: {masteryScore}/10
                             </span>
                           )}
                         </div>
                       </div>
 
-                      <h3 className="text-2xl font-bold mb-3 group-hover:text-cyan-400 transition-colors">
+                      <h3 className="text-2xl font-bold mb-3 group-hover:text-green-400 transition-colors">
                         {lesson.title}
                       </h3>
 
@@ -207,14 +207,14 @@ export default function LessonTimeline({ lessons }: LessonTimelineProps) {
                           </span>
                         )}
                         {lesson.strategie_progression && (
-                          <span className="px-2 py-1 bg-purple-500/20 text-purple-400 rounded text-xs">
+                          <span className="px-2 py-1 bg-orange-500/20 text-orange-400 rounded text-xs">
                             📈 Stratégie
                           </span>
                         )}
                       </div>
 
                       <motion.div
-                        className="mt-4 flex items-center text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="mt-4 flex items-center text-green-400 opacity-0 group-hover:opacity-100 transition-opacity"
                         animate={{
                           x: isLeft ? [0, 10, 0] : [0, -10, 0],
                         }}
@@ -257,7 +257,7 @@ export default function LessonTimeline({ lessons }: LessonTimelineProps) {
 
                   {index < 2 && (
                     <motion.div
-                      className="absolute inset-0 rounded-full bg-cyan-500/30"
+                      className="absolute inset-0 rounded-full bg-green-500/30"
                       animate={{
                         scale: [1, 1.5, 1],
                         opacity: [0.5, 0, 0.5],
@@ -272,7 +272,7 @@ export default function LessonTimeline({ lessons }: LessonTimelineProps) {
                 </motion.div>
 
                 <motion.div
-                  className="mt-2 w-0.5 h-8 bg-gradient-to-b from-cyan-500 to-transparent"
+                  className="mt-2 w-0.5 h-8 bg-gradient-to-b from-green-500 to-transparent"
                   initial={{ scaleY: 0 }}
                   whileInView={{ scaleY: 1 }}
                   viewport={{ once: true }}
@@ -296,7 +296,7 @@ export default function LessonTimeline({ lessons }: LessonTimelineProps) {
         <div className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-full px-8 py-4">
           <div className="flex items-center space-x-6">
             <div className="text-center">
-              <div className="text-2xl font-bold text-cyan-400">{lessons.length}</div>
+              <div className="text-2xl font-bold text-green-400">{lessons.length}</div>
               <div className="text-xs text-gray-400">Leçons</div>
             </div>
             <div className="w-px h-8 bg-white/20" />

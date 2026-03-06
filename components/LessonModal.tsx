@@ -85,7 +85,7 @@ export function LessonModal({
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 required
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                className="w-full px-4 py-3 bg-white/5 border border-white/5 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"
                 placeholder="ex: Introduction à la Complexité Algorithmique"
               />
             </div>
@@ -100,7 +100,7 @@ export function LessonModal({
                   type="date"
                   value={formData.date}
                   onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/5 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
               </div>
 
@@ -116,7 +116,7 @@ export function LessonModal({
                     setFormData({ ...formData, week_number: parseInt(e.target.value) || null })
                   }
                   min="1"
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/5 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"
                   placeholder="1, 2, 3..."
                 />
               </div>
@@ -134,7 +134,7 @@ export function LessonModal({
                 onChange={(e) => setFormData({ ...formData, journal_reflexif: e.target.value })}
                 required
                 rows={6}
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                className="w-full px-4 py-3 bg-white/5 border border-white/5 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"
                 placeholder="Ce que j'ai appris cette semaine..."
               />
             </div>
@@ -148,7 +148,7 @@ export function LessonModal({
                 onChange={(e) => setFormData({ ...formData, synthese_personnelle: e.target.value })}
                 required
                 rows={6}
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                className="w-full px-4 py-3 bg-white/5 border border-white/5 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"
                 placeholder="Résumé des concepts principaux..."
               />
             </div>
@@ -162,13 +162,13 @@ export function LessonModal({
                 onChange={(e) => setFormData({ ...formData, application_pratique: e.target.value })}
                 required
                 rows={6}
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                className="w-full px-4 py-3 bg-white/5 border border-white/5 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"
                 placeholder="Comment appliquer ces concepts..."
               />
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-cyan-400">
+              <h3 className="text-lg font-semibold text-green-400">
                 4. Auto-évaluation et méta-cognition
               </h3>
 
@@ -227,7 +227,7 @@ export function LessonModal({
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-1 px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl hover:shadow-lg hover:shadow-cyan-500/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="flex-1 px-6 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-xl hover:shadow-lg hover:shadow-green-500/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {loading ? (
                   <>

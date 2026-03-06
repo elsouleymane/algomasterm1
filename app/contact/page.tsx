@@ -17,7 +17,6 @@ import {
   Loader2,
 } from 'lucide-react'
 import ModernBackground from '@/components/ModernBackground'
-import CustomCursor from '@/components/CustomCursor'
 import { createContact } from '@/lib/supabase'
 import toast, { Toaster } from 'react-hot-toast'
 import Footer from '@/components/Footer'
@@ -40,7 +39,7 @@ export default function ContactPage() {
       await createContact(formData)
 
       setSent(true)
-      toast.success('Message envoyé avec succès ! 🎉')
+      toast.success('Message envoyé avec succès !')
 
       setTimeout(() => {
         setSent(false)
@@ -60,21 +59,21 @@ export default function ContactPage() {
       label: 'Email',
       value: 'contact@example.com',
       href: 'mailto:contact@example.com',
-      color: 'from-cyan-500 to-blue-600',
+      color: 'bg-green-500/10 text-green-400',
     },
     {
       icon: Phone,
       label: 'Téléphone',
       value: '+225 XX XX XX XX XX',
       href: 'tel:+225XXXXXXXXXX',
-      color: 'from-green-500 to-emerald-600',
+      color: 'bg-orange-500/10 text-orange-400',
     },
     {
       icon: MapPin,
       label: 'Localisation',
       value: 'Côte d\'Ivoire',
       href: 'https://maps.google.com/?q=Cote+d+Ivoire',
-      color: 'from-purple-500 to-pink-600',
+      color: 'bg-green-500/10 text-green-400',
     },
   ]
 
@@ -83,34 +82,31 @@ export default function ContactPage() {
       icon: Github,
       label: 'GitHub',
       href: 'https://github.com/elsouleymane',
-      color: 'hover:text-gray-400',
     },
     {
       icon: Linkedin,
       label: 'LinkedIn',
       href: '#',
-      color: 'hover:text-blue-400',
     },
   ]
 
   return (
     <>
       <Toaster position="top-right" />
-      <CustomCursor />
       <ModernBackground />
 
       <div className="relative min-h-screen text-white">
         <motion.header
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-white/10"
+          className="fixed top-0 left-0 right-0 z-50 backdrop-blur-lg bg-slate-950/70 border-b border-white/5"
         >
           <div className="container mx-auto px-6 py-4">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-gray-300 hover:text-cyan-400 transition-colors group"
+              className="inline-flex items-center gap-2 text-gray-400 hover:text-green-400 transition-colors"
             >
-              <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+              <ArrowLeft className="w-5 h-5" />
               <span>Retour à l&apos;accueil</span>
             </Link>
           </div>
@@ -119,35 +115,33 @@ export default function ContactPage() {
         <div className="pt-32 pb-20">
           <div className="container mx-auto px-6">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="text-center mb-16"
             >
-              <h1 className="text-6xl md:text-7xl font-bold mb-6">
-                <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-                  Contactez-moi
-                </span>
+              <h1 className="text-5xl md:text-6xl font-bold mb-6">
+                <span className="text-green-400">Contactez-moi</span>
               </h1>
-              <p className="text-2xl text-gray-300 max-w-3xl mx-auto">
-                Une question ? Un projet ? N&apos;hésitez pas à me contacter, je vous répondrai dans les plus brefs délais ! ⚡
+              <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+                Une question ? Un projet ? N&apos;hésitez pas à me contacter, je vous répondrai dans les plus brefs délais !
               </p>
             </motion.div>
 
-            <div className="max-w-6xl mx-auto grid md:grid-cols-5 gap-8">
+            <div className="max-w-5xl mx-auto grid md:grid-cols-5 gap-6">
               <motion.div
-                initial={{ opacity: 0, x: -50 }}
+                initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2 }}
-                className="md:col-span-3 glass rounded-3xl p-8 border border-white/10"
+                className="md:col-span-3 glass rounded-2xl p-8"
               >
-                <h2 className="text-3xl font-bold mb-6 flex items-center gap-3">
-                  <Send className="w-8 h-8 text-cyan-400" />
+                <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
+                  <Send className="w-6 h-6 text-green-400" />
                   Envoyez un message
                 </h2>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-gray-400 mb-2">
                       <User className="w-4 h-4 inline mr-2" />
                       Nom complet *
                     </label>
@@ -156,13 +150,13 @@ export default function ContactPage() {
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all"
+                      className="w-full px-4 py-3 bg-white/5 border border-white/5 rounded-lg text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500/50 transition-all"
                       placeholder="Votre nom"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-gray-400 mb-2">
                       <Mail className="w-4 h-4 inline mr-2" />
                       Email *
                     </label>
@@ -171,13 +165,13 @@ export default function ContactPage() {
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all"
+                      className="w-full px-4 py-3 bg-white/5 border border-white/5 rounded-lg text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500/50 transition-all"
                       placeholder="votre.email@example.com"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-gray-400 mb-2">
                       <MessageSquare className="w-4 h-4 inline mr-2" />
                       Sujet *
                     </label>
@@ -186,13 +180,13 @@ export default function ContactPage() {
                       required
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all"
+                      className="w-full px-4 py-3 bg-white/5 border border-white/5 rounded-lg text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500/50 transition-all"
                       placeholder="Ex: Proposition de collaboration"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-gray-400 mb-2">
                       Message *
                     </label>
                     <textarea
@@ -200,7 +194,7 @@ export default function ContactPage() {
                       rows={6}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all resize-none"
+                      className="w-full px-4 py-3 bg-white/5 border border-white/5 rounded-lg text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500/50 transition-all resize-none"
                       placeholder="Votre message..."
                     />
                   </div>
@@ -208,7 +202,7 @@ export default function ContactPage() {
                   <button
                     type="submit"
                     disabled={sending || sent}
-                    className="w-full px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
+                    className="w-full px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {sending ? (
                       <>
@@ -231,32 +225,30 @@ export default function ContactPage() {
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, x: 50 }}
+                initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 }}
-                className="md:col-span-2 space-y-6"
+                transition={{ delay: 0.3 }}
+                className="md:col-span-2 space-y-4"
               >
-                <div className="space-y-4">
+                <div className="space-y-3">
                   {contactInfo.map((info, index) => (
                     <motion.a
                       key={info.label}
                       href={info.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      initial={{ opacity: 0, y: 20 }}
+                      initial={{ opacity: 0, y: 15 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6 + index * 0.1 }}
-                      className="block glass rounded-2xl p-6 border border-white/10 hover:border-cyan-500/30 transition-all hover:scale-105 group"
+                      transition={{ delay: 0.4 + index * 0.1 }}
+                      className="block glass rounded-xl p-5 hover:bg-white/5 transition-colors"
                     >
                       <div className="flex items-center gap-4">
-                        <div
-                          className={`w-12 h-12 rounded-xl bg-gradient-to-br ${info.color} flex items-center justify-center flex-shrink-0`}
-                        >
-                          <info.icon className="w-6 h-6 text-white" />
+                        <div className={`w-10 h-10 rounded-lg ${info.color} flex items-center justify-center flex-shrink-0`}>
+                          <info.icon className="w-5 h-5" />
                         </div>
                         <div>
-                          <p className="text-sm text-gray-400 mb-1">{info.label}</p>
-                          <p className="font-semibold text-white group-hover:text-cyan-400 transition-colors">
+                          <p className="text-xs text-gray-500 mb-1">{info.label}</p>
+                          <p className="font-medium text-gray-300 text-sm">
                             {info.value}
                           </p>
                         </div>
@@ -266,42 +258,42 @@ export default function ContactPage() {
                 </div>
 
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.9 }}
-                  className="glass rounded-2xl p-6 border border-white/10"
+                  transition={{ delay: 0.7 }}
+                  className="glass rounded-xl p-5"
                 >
-                  <h3 className="font-bold text-white mb-4">Suivez-moi</h3>
-                  <div className="flex gap-3">
+                  <h3 className="font-bold text-white mb-3 text-sm">Suivez-moi</h3>
+                  <div className="flex gap-2">
                     {socialLinks.map((social) => (
                       <a
                         key={social.label}
                         href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`p-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all hover:scale-110 ${social.color}`}
+                        className="p-2.5 bg-white/5 hover:bg-white/10 border border-white/5 rounded-lg transition-colors"
                         title={social.label}
                       >
-                        <social.icon className="w-6 h-6" />
+                        <social.icon className="w-5 h-5 text-gray-400" />
                       </a>
                     ))}
                   </div>
                 </motion.div>
 
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.0 }}
-                  className="glass rounded-2xl p-6 border border-white/10"
+                  transition={{ delay: 0.8 }}
+                  className="glass rounded-xl p-5"
                 >
-                  <h3 className="font-bold text-white mb-3">Disponibilité</h3>
+                  <h3 className="font-bold text-white mb-3 text-sm">Disponibilité</h3>
                   <div className="space-y-2 text-sm">
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                      <span className="text-gray-300">Actuellement disponible</span>
+                      <div className="w-2 h-2 bg-green-500 rounded-full" />
+                      <span className="text-gray-400">Actuellement disponible</span>
                     </div>
-                    <p className="text-gray-400">
-                      Temps de réponse : <span className="text-cyan-400">24-48h</span>
+                    <p className="text-gray-500">
+                      Temps de réponse : <span className="text-green-400">24-48h</span>
                     </p>
                   </div>
                 </motion.div>

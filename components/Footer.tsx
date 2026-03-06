@@ -31,44 +31,41 @@ export default function Footer() {
       icon: Github,
       href: 'https://github.com/elsouleymane',
       label: 'GitHub',
-      color: 'hover:text-gray-400',
     },
     {
       icon: Linkedin,
       href: '#',
       label: 'LinkedIn',
-      color: 'hover:text-blue-400',
     },
     {
       icon: Mail,
       href: 'mailto:contact@example.com',
       label: 'Email',
-      color: 'hover:text-cyan-400',
     },
   ]
 
   return (
-    <footer className="relative mt-20 backdrop-blur-xl bg-slate-950/80 border-t border-white/10">
-      <div className="container mx-auto px-6 py-12">
+    <footer className="relative mt-20 bg-slate-950/80 border-t border-white/5">
+      <div className="container mx-auto px-6 py-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div className="md:col-span-2">
-            <h3 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-600 bg-clip-text text-transparent mb-4">
+            <h3 className="text-xl font-bold text-green-400 mb-3">
               AlgoMaster Portfolio
             </h3>
-            <p className="text-gray-400 mb-4">
+            <p className="text-gray-500 text-sm mb-4">
               Portfolio évolutif documentant mon parcours d&apos;apprentissage en algorithmique et Big Data Analytics.
             </p>
-            <div className="flex gap-3">
+            <div className="flex gap-2">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`p-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg transition-all hover:scale-110 ${social.color}`}
+                  className="p-2 bg-white/5 hover:bg-white/10 border border-white/5 rounded-lg transition-colors"
                   title={social.label}
                 >
-                  <social.icon className="w-5 h-5" />
+                  <social.icon className="w-4 h-4 text-gray-500 hover:text-green-400 transition-colors" />
                 </a>
               ))}
             </div>
@@ -76,13 +73,13 @@ export default function Footer() {
 
           {footerLinks.map((section) => (
             <div key={section.title}>
-              <h4 className="font-bold text-white mb-4">{section.title}</h4>
+              <h4 className="font-semibold text-white mb-3 text-sm">{section.title}</h4>
               <ul className="space-y-2">
                 {section.links.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-gray-400 hover:text-cyan-400 transition-colors"
+                      className="text-gray-500 hover:text-green-400 transition-colors text-sm"
                     >
                       {link.label}
                     </Link>
@@ -93,13 +90,13 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="border-t border-white/10 pt-8">
+        <div className="border-t border-white/5 pt-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-400 text-sm text-center md:text-left">
+            <p className="text-gray-600 text-xs text-center md:text-left">
               © {currentYear} El adj Souleymane Nuhu. Tous droits réservés.
             </p>
-            <p className="text-gray-400 text-sm flex items-center gap-1">
-              Propulsé par Next.js • Supabase • Three.js
+            <p className="text-gray-600 text-xs">
+              Propulsé par Next.js • Supabase
             </p>
           </div>
         </div>
