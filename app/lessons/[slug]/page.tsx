@@ -103,6 +103,7 @@ export default function LessonDetailPage() {
               <div className="flex gap-2">
                 <button
                   onClick={() => setSidebarOpen(!sidebarOpen)}
+                  aria-label="Afficher/masquer la navigation des leçons"
                   className="flex items-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/10 rounded-xl transition-colors md:hidden"
                 >
                   <BookOpen className="w-4 h-4" />

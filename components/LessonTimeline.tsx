@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { Brain, Code2, Zap, BookOpen, Award, TrendingUp, Database, Cpu, GitBranch, Network, Search, BarChart, ArrowRight } from 'lucide-react'
+import { Code2, BookOpen, Database, Cpu, GitBranch, Network, Search, BarChart, ArrowRight } from 'lucide-react'
 import { Lesson } from '@/lib/supabase'
 
 interface LessonTimelineProps {
