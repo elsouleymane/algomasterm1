@@ -116,36 +116,67 @@ export default function ContactPage() {
           </div>
         </motion.header>
 
-        <div className="pt-32 pb-20">
-          <div className="container mx-auto px-6">
+        <div className="pt-28 pb-20">
+          <div className="container mx-auto px-6 max-w-4xl">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-center mb-16"
+              className="mb-10"
             >
-              <h1 className="text-6xl md:text-7xl font-bold mb-6">
+              <h1 className="text-4xl md:text-5xl font-bold mb-3">
                 <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
                   Contactez-moi
                 </span>
               </h1>
-              <p className="text-2xl text-gray-300 max-w-3xl mx-auto">
-                Une question ? Un projet ? N&apos;hésitez pas à me contacter, je vous répondrai dans les plus brefs délais ! ⚡
+              <div className="w-20 h-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full mb-4" />
+              <p className="text-lg text-gray-300">
+                Une question ? Un projet ? N&apos;hésitez pas à me contacter ! ⚡
               </p>
             </motion.div>
 
-            <div className="max-w-6xl mx-auto grid md:grid-cols-5 gap-8">
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
-                className="md:col-span-3 glass rounded-3xl p-8 border border-white/10"
-              >
-                <h2 className="text-3xl font-bold mb-6 flex items-center gap-3">
-                  <Send className="w-8 h-8 text-cyan-400" />
-                  Envoyez un message
-                </h2>
+            {/* Contact info cards - horizontal row on top */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8"
+            >
+              {contactInfo.map((info, index) => (
+                <motion.a
+                  key={info.label}
+                  href={info.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + index * 0.1 }}
+                  className="glass rounded-2xl p-5 border border-white/10 hover:border-cyan-500/30 transition-all hover:scale-105 group text-center"
+                >
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${info.color} flex items-center justify-center mx-auto mb-3`}>
+                    <info.icon className="w-6 h-6 text-white" />
+                  </div>
+                  <p className="text-xs text-gray-400 mb-1">{info.label}</p>
+                  <p className="font-medium text-white group-hover:text-cyan-400 transition-colors text-sm">
+                    {info.value}
+                  </p>
+                </motion.a>
+              ))}
+            </motion.div>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Full-width form */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="glass rounded-2xl p-8 border border-white/10 mb-8"
+            >
+              <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
+                <Send className="w-6 h-6 text-cyan-400" />
+                Envoyez un message
+              </h2>
+
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="grid md:grid-cols-2 gap-5">
                   <div>
                     <label className="block text-sm font-medium text-gray-300 mb-2">
                       <User className="w-4 h-4 inline mr-2" />
@@ -175,138 +206,100 @@ export default function ContactPage() {
                       placeholder="votre.email@example.com"
                     />
                   </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      <MessageSquare className="w-4 h-4 inline mr-2" />
-                      Sujet *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.subject}
-                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all"
-                      placeholder="Ex: Proposition de collaboration"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Message *
-                    </label>
-                    <textarea
-                      required
-                      rows={6}
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all resize-none"
-                      placeholder="Votre message..."
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={sending || sent}
-                    className="w-full px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
-                  >
-                    {sending ? (
-                      <>
-                        <Loader2 className="w-5 h-5 animate-spin" />
-                        Envoi en cours...
-                      </>
-                    ) : sent ? (
-                      <>
-                        <CheckCircle className="w-5 h-5" />
-                        Message envoyé !
-                      </>
-                    ) : (
-                      <>
-                        <Send className="w-5 h-5" />
-                        Envoyer le message
-                      </>
-                    )}
-                  </button>
-                </form>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 }}
-                className="md:col-span-2 space-y-6"
-              >
-                <div className="space-y-4">
-                  {contactInfo.map((info, index) => (
-                    <motion.a
-                      key={info.label}
-                      href={info.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6 + index * 0.1 }}
-                      className="block glass rounded-2xl p-6 border border-white/10 hover:border-cyan-500/30 transition-all hover:scale-105 group"
-                    >
-                      <div className="flex items-center gap-4">
-                        <div
-                          className={`w-12 h-12 rounded-xl bg-gradient-to-br ${info.color} flex items-center justify-center flex-shrink-0`}
-                        >
-                          <info.icon className="w-6 h-6 text-white" />
-                        </div>
-                        <div>
-                          <p className="text-sm text-gray-400 mb-1">{info.label}</p>
-                          <p className="font-semibold text-white group-hover:text-cyan-400 transition-colors">
-                            {info.value}
-                          </p>
-                        </div>
-                      </div>
-                    </motion.a>
-                  ))}
                 </div>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.9 }}
-                  className="glass rounded-2xl p-6 border border-white/10"
-                >
-                  <h3 className="font-bold text-white mb-4">Suivez-moi</h3>
-                  <div className="flex gap-3">
-                    {socialLinks.map((social) => (
-                      <a
-                        key={social.label}
-                        href={social.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`p-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all hover:scale-110 ${social.color}`}
-                        title={social.label}
-                      >
-                        <social.icon className="w-6 h-6" />
-                      </a>
-                    ))}
-                  </div>
-                </motion.div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <MessageSquare className="w-4 h-4 inline mr-2" />
+                    Sujet *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.subject}
+                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all"
+                    placeholder="Ex: Proposition de collaboration"
+                  />
+                </div>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.0 }}
-                  className="glass rounded-2xl p-6 border border-white/10"
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    Message *
+                  </label>
+                  <textarea
+                    required
+                    rows={5}
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all resize-none"
+                    placeholder="Votre message..."
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={sending || sent}
+                  className="w-full px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
                 >
-                  <h3 className="font-bold text-white mb-3">Disponibilité</h3>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                      <span className="text-gray-300">Actuellement disponible</span>
-                    </div>
-                    <p className="text-gray-400">
-                      Temps de réponse : <span className="text-cyan-400">24-48h</span>
-                    </p>
+                  {sending ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      Envoi en cours...
+                    </>
+                  ) : sent ? (
+                    <>
+                      <CheckCircle className="w-5 h-5" />
+                      Message envoyé !
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-5 h-5" />
+                      Envoyer le message
+                    </>
+                  )}
+                </button>
+              </form>
+            </motion.div>
+
+            {/* Social + availability - bottom row */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7 }}
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+            >
+              <div className="glass rounded-2xl p-5 border border-white/10">
+                <h3 className="font-bold text-white mb-3">Suivez-moi</h3>
+                <div className="flex gap-3">
+                  {socialLinks.map((social) => (
+                    <a
+                      key={social.label}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`p-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all hover:scale-110 ${social.color}`}
+                      title={social.label}
+                    >
+                      <social.icon className="w-5 h-5" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <div className="glass rounded-2xl p-5 border border-white/10">
+                <h3 className="font-bold text-white mb-3">Disponibilité</h3>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                    <span className="text-gray-300">Actuellement disponible</span>
                   </div>
-                </motion.div>
-              </motion.div>
-            </div>
+                  <p className="text-gray-400">
+                    Temps de réponse : <span className="text-cyan-400">24-48h</span>
+                  </p>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>
